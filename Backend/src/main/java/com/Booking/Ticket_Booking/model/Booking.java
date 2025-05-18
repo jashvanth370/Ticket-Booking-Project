@@ -1,7 +1,7 @@
-package com.Booking.Ticket_Booking.modal;
+package com.Booking.Ticket_Booking.model;
 
-import com.Booking.Ticket_Booking.modal.enums.BookingStatus;
-import com.Booking.Ticket_Booking.modal.enums.PaymentStatus;
+import com.Booking.Ticket_Booking.model.enums.BookingStatus;
+import com.Booking.Ticket_Booking.model.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
