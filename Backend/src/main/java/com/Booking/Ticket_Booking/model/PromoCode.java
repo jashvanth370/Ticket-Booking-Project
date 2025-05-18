@@ -1,4 +1,4 @@
-package com.Booking.Ticket_Booking.modal;
+package com.Booking.Ticket_Booking.model;
 
 import jakarta.persistence.*;
 import lombok.*;

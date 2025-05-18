@@ -1,6 +1,6 @@
-package com.Booking.Ticket_Booking.modal;
+package com.Booking.Ticket_Booking.model;
 
-import com.Booking.Ticket_Booking.modal.enums.EventStatus;
+import com.Booking.Ticket_Booking.model.enums.EventStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;

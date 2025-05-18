@@ -1,4 +1,4 @@
-package com.Booking.Ticket_Booking.modal.enums;
+package com.Booking.Ticket_Booking.model.enums;
 
 public enum BookingStatus {
     CONFIRMED,
