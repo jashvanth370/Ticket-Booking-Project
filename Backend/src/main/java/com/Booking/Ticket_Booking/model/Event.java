@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "events")
@@ -21,7 +22,6 @@ public class Event {
     private double price;
     private Long available_tickets;
     private Long total_tickets;
-    private String image_url;
     private String category;
     @Enumerated(EnumType.STRING)
     private EventStatus status;
