@@ -5,11 +5,6 @@ import com.Booking.Ticket_Booking.DTO.UserRequest;
 import com.Booking.Ticket_Booking.model.User;
 import com.Booking.Ticket_Booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +74,6 @@ public class UserService {
             return new Response<>(500, "Internal server error", null);
         }
     }
-
 
     public Response<?> deleteUser(Long id){
         try{

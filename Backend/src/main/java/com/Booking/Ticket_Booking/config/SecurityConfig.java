@@ -34,7 +34,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // ✅ Allow registration and login without authentication
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/auth/**", "/api/upload/**", "/uploads/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/upload/**", "/uploads/**","/api/booking/**").permitAll()
+
 
                         // ✅ Secure these properly
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
