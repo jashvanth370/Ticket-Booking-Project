@@ -3,13 +3,16 @@ package com.Booking.Ticket_Booking.service;
 import com.Booking.Ticket_Booking.DTO.EventRequest;
 import com.Booking.Ticket_Booking.DTO.Response;
 import com.Booking.Ticket_Booking.model.Event;
+import com.Booking.Ticket_Booking.model.enums.EventStatus;
 import com.Booking.Ticket_Booking.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -37,5 +40,45 @@ public class EventService {
             e.printStackTrace();
             return new Response<>(500,"Internal server error",null);
         }
+    }
+
+    public Response<?> updateEvent(EventRequest request,Long id){
+        try{
+            Optional<Event> existingEvent = eventRepository.findById(id);
+            if(existingEvent.isEmpty()){
+                return new Response<>(400,"Event not found",null);
+            }
+            Event event = existingEvent.get();
+
+            event.setCategory(request.getCategory());
+            event.setDescription(request.getDescription());
+            event.setLocation(request.getLocation());
+            event.setPrice(request.getPrice());
+            event.setAvailable_tickets(request.getAvailableTickets());
+            event.setTotal_tickets(request.getTotalTickets());
+            event.setStatus(request.getStatus());
+            event.setTitle(request.getTitle());
+
+            eventRepository.save(event);
+            return new Response<>(200,"Event updated successfully",event);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Response<>(500,"Internal server error",null);
+        }
+    }
+
+    public List<Event> filterEvents(String category, String location, EventStatus status, String title) {
+        return eventRepository.findAll().stream()
+                .filter(event -> category == null || event.getCategory().equalsIgnoreCase(category))
+                .filter(event -> location == null || event.getLocation().equalsIgnoreCase(location))
+                .filter(event -> status == null || event.getStatus() == status)
+                .filter(event -> title == null || event.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    public Response<?> getEventByCategory(String category){
+        List<Event> eventList=eventRepository.findByCategoryIgnoreCase(category);
+        return new Response<>(200,"Filter by category",eventList);
     }
 }
