@@ -48,5 +48,63 @@ public class UserService {
         }
     }
 
+    public Response<?> updateUser(UserRequest request, Long id) {
+        try {
+            Optional<User> optionalUser = userRepository.findById(id);
+            if (optionalUser.isEmpty()) {
+                return new Response<>(400, "User not found", null);
+            }
+            User user = optionalUser.get();
+            if (request.getEmail() != null && !request.getEmail().equals(user.getEmail())) {
+                Optional<User> emailCheck = userRepository.findByEmail(request.getEmail());
+                if (emailCheck.isPresent()) {
+                    return new Response<>(400, "Email already exists", null);
+                }
+                user.setEmail(request.getEmail());
+            }
+            if (request.getName() != null) {
+                user.setName(request.getName());
+            }
+            if (request.getRole() != null) {
+                user.setRole(request.getRole());
+            }
+            if (request.getPassword() != null && !request.getPassword().isBlank()) {
+                user.setPassword(encoder.encode(request.getPassword()));
+            }
+            userRepository.save(user);
+            return new Response<>(200, "User updated successfully", user);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response<>(500, "Internal server error", null);
+        }
+    }
+
+
+    public Response<?> deleteUser(Long id){
+        try{
+            Optional<User> existingUser = userRepository.findById(id);
+            if(existingUser.isEmpty()){
+                return new Response<>(400,"User Not Found",null);
+            }
+            userRepository.deleteById(id);
+            return new Response<>(200,"User Delete successfully",null);
+        }
+        catch(Exception e){
+            return new Response<>(500,"Internal server error",null);
+        }
+    }
+
+    public Response<?> getAllUsers(){
+        try{
+            List<User> userList = userRepository.findAll();
+            return new Response<>(200,"Users Fetched successfully",userList);
+        }
+        catch(Exception e){
+            return new Response<>(500,"Internal server error",null);
+        }
+    }
+
+
 
 }

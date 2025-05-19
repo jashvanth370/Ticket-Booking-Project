@@ -15,4 +15,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PutMapping("/update/{id}")
+    public Response<?> updateUser( @RequestBody UserRequest request,
+                                   @PathVariable Long id){
+        return userService.updateUser(request,id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Response<?> deleteUser(@PathVariable Long id){
+        return userService.deleteUser(id);
+    }
+
+    @GetMapping("/getAll")
+    public Response<?> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+
 }
