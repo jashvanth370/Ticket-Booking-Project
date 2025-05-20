@@ -46,4 +46,8 @@ public class EventController {
         return eventService.getEventByCategory(category);
     }
 
+    @GetMapping("/location")
+    public Response<?> findByLocation(@RequestParam String location){
+        return eventService.getEventsByLocation(location);
+    }
 }

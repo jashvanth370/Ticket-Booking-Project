@@ -13,4 +13,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     public Optional<Event> findByTitle(String title);
 
     public List<Event> findByCategoryIgnoreCase(String category);
+
+    public List<Event> findByLocation(String location);
 }

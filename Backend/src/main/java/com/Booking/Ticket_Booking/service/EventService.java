@@ -79,6 +79,17 @@ public class EventService {
 
     public Response<?> getEventByCategory(String category){
         List<Event> eventList=eventRepository.findByCategoryIgnoreCase(category);
+        if(eventList.isEmpty()){
+            return new Response<>(400,"events not there",null);
+        }
         return new Response<>(200,"Filter by category",eventList);
+    }
+
+    public Response<?> getEventsByLocation(String location){
+        List<Event> eventList = eventRepository.findByLocation(location);
+        if(eventList.isEmpty()){
+            return new Response<>(400,"Events not there",null);
+        }
+        return new Response<>(200,"filter by location",eventList);
     }
 }
