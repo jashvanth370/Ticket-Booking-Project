@@ -6,6 +6,9 @@ const EventPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    //
+    // Fetch all events from the API
+
     const fetchEvents = async () => {
         try {
             const response = await getAllEvents();
