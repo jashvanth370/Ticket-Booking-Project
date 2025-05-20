@@ -92,4 +92,20 @@ public class EventService {
         }
         return new Response<>(200,"filter by location",eventList);
     }
+
+    public Response<?> deleteEvent(Long id){
+        try{
+            Optional<Event> existingEvent = eventRepository.findById(id);
+            if(existingEvent.isEmpty()){
+                return new Response<>(400,"event is not found",null);
+            }
+            Event event = existingEvent.get();
+            eventRepository.delete(event);
+            return new Response<>(200,"Event successfully delete",event);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return new Response<>(500,"Internal server error",null);
+        }
+    }
 }

@@ -50,4 +50,9 @@ public class EventController {
     public Response<?> findByLocation(@RequestParam String location){
         return eventService.getEventsByLocation(location);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public Response<?> deleteEvent(@PathVariable Long id){
+        return eventService.deleteEvent(id);
+    }
 }
