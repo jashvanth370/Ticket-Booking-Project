@@ -1,13 +1,17 @@
 package com.Booking.Ticket_Booking.controller;
 
 import com.Booking.Ticket_Booking.DTO.EventRequest;
-import com.Booking.Ticket_Booking.DTO.Response;
 import com.Booking.Ticket_Booking.model.Event;
+import com.Booking.Ticket_Booking.model.User;
 import com.Booking.Ticket_Booking.model.enums.EventStatus;
+import com.Booking.Ticket_Booking.repository.UserRepository;
 import com.Booking.Ticket_Booking.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,18 +20,22 @@ import java.util.List;
 @RequestMapping("/api/events")
 @CrossOrigin(origins = "*")
 public class EventController {
+
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/create")
-    public Response<?> createEvent(@RequestBody EventRequest eventRequest){
+    public ResponseEntity<?> createEvent(@RequestBody EventRequest eventRequest) {
         return eventService.createEvent(eventRequest);
     }
 
     @PutMapping("/update/{id}")
-    public Response<?> updateEvent(@RequestBody EventRequest eventRequest,
-                                   @PathVariable Long id){
-        return eventService.updateEvent(eventRequest,id);
+    public ResponseEntity<?> updateEvent(@RequestBody EventRequest eventRequest,
+                                         @PathVariable Long id) {
+        return eventService.updateEvent(eventRequest, id);
     }
 
     @GetMapping("/search")
@@ -41,18 +49,40 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/category")
-    public Response<?> findByCategory(@RequestParam String category){
+    @GetMapping("/getEventsByCategory/{category}")
+    public ResponseEntity<?> findByCategory(@PathVariable String category) {
         return eventService.getEventByCategory(category);
     }
 
-    @GetMapping("/location")
-    public Response<?> findByLocation(@RequestParam String location){
+    @GetMapping("/getEventsByLocation/{location}")
+    public ResponseEntity<?> findByLocation(@PathVariable String location) {
         return eventService.getEventsByLocation(location);
     }
 
     @DeleteMapping("/delete/{id}")
-    public Response<?> deleteEvent(@PathVariable Long id){
+    public ResponseEntity<?> deleteEvent(@PathVariable Long id) {
         return eventService.deleteEvent(id);
+    }
+
+    @GetMapping("/getAllEvents")
+    public ResponseEntity<?> getAllEvents() {
+        return eventService.getAllEvents();
+    }
+
+    @GetMapping("/getEventById/{id}")
+    public ResponseEntity<?> getEventById(@PathVariable Long id) {
+        return eventService.getEventById(id);
+    }
+
+    @GetMapping("/my-events")
+    public ResponseEntity<?> getMyEvents() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        List<Event> events = eventService.getEventsByUserId(user.getId());
+        return ResponseEntity.ok(events);
     }
 }

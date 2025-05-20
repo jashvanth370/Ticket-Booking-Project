@@ -1,13 +1,14 @@
 package com.Booking.Ticket_Booking.service;
 
 import com.Booking.Ticket_Booking.DTO.EventRequest;
-import com.Booking.Ticket_Booking.DTO.Response;
 import com.Booking.Ticket_Booking.model.Event;
+import com.Booking.Ticket_Booking.model.User;
 import com.Booking.Ticket_Booking.model.enums.EventStatus;
 import com.Booking.Ticket_Booking.repository.EventRepository;
+import com.Booking.Ticket_Booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,8 +21,18 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    public Response<?> createEvent(EventRequest request){
-        try{
+    @Autowired
+    private UserRepository userRepository;
+
+    public ResponseEntity<?> createEvent(EventRequest request) {
+        try {
+            Optional<User> userOptional = userRepository.findById(request.getUserId());
+            if (userOptional.isEmpty()) {
+                return ResponseEntity.status(404).body("User not found");
+            }
+
+            User user = userOptional.get();
+
             Event event = Event.builder()
                     .title(request.getTitle())
                     .description(request.getDescription())
@@ -32,80 +43,111 @@ public class EventService {
                     .total_tickets(request.getTotalTickets())
                     .category(request.getCategory())
                     .status(request.getStatus())
+                    .createdBy(user)
                     .build();
+
             eventRepository.save(event);
-            return new Response<>(200,"Event create successfully",event);
-        }
-        catch (Exception e){
+            return ResponseEntity.ok(event);
+
+        } catch (Exception e) {
             e.printStackTrace();
-            return new Response<>(500,"Internal server error",null);
+            return ResponseEntity.status(500).body("Internal server error");
         }
     }
 
-    public Response<?> updateEvent(EventRequest request,Long id){
-        try{
-            Optional<Event> existingEvent = eventRepository.findById(id);
-            if(existingEvent.isEmpty()){
-                return new Response<>(400,"Event not found",null);
+    public ResponseEntity<?> updateEvent(EventRequest request, Long id) {
+        try {
+            Optional<Event> eventOpt = eventRepository.findById(id);
+            if (eventOpt.isEmpty()) {
+                return ResponseEntity.status(404).body("Event not found");
             }
-            Event event = existingEvent.get();
 
-            event.setCategory(request.getCategory());
+            Event event = eventOpt.get();
+            event.setTitle(request.getTitle());
             event.setDescription(request.getDescription());
             event.setLocation(request.getLocation());
+            event.setCategory(request.getCategory());
             event.setPrice(request.getPrice());
             event.setAvailable_tickets(request.getAvailableTickets());
             event.setTotal_tickets(request.getTotalTickets());
             event.setStatus(request.getStatus());
-            event.setTitle(request.getTitle());
 
             eventRepository.save(event);
-            return new Response<>(200,"Event updated successfully",event);
+            return ResponseEntity.ok(event);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return new Response<>(500,"Internal server error",null);
+            return ResponseEntity.status(500).body("Internal server error");
         }
     }
 
     public List<Event> filterEvents(String category, String location, EventStatus status, String title) {
         return eventRepository.findAll().stream()
-                .filter(event -> category == null || event.getCategory().equalsIgnoreCase(category))
-                .filter(event -> location == null || event.getLocation().equalsIgnoreCase(location))
-                .filter(event -> status == null || event.getStatus() == status)
-                .filter(event -> title == null || event.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .filter(e -> category == null || e.getCategory().equalsIgnoreCase(category))
+                .filter(e -> location == null || e.getLocation().equalsIgnoreCase(location))
+                .filter(e -> status == null || e.getStatus() == status)
+                .filter(e -> title == null || e.getTitle().toLowerCase().contains(title.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
-    public Response<?> getEventByCategory(String category){
-        List<Event> eventList=eventRepository.findByCategoryIgnoreCase(category);
-        if(eventList.isEmpty()){
-            return new Response<>(400,"events not there",null);
+    public ResponseEntity<?> getEventByCategory(String category) {
+        List<Event> events = eventRepository.findByCategoryIgnoreCase(category);
+        if (events.isEmpty()) {
+            return ResponseEntity.status(404).body("No events found for this category");
         }
-        return new Response<>(200,"Filter by category",eventList);
+        return ResponseEntity.ok(events);
     }
 
-    public Response<?> getEventsByLocation(String location){
-        List<Event> eventList = eventRepository.findByLocation(location);
-        if(eventList.isEmpty()){
-            return new Response<>(400,"Events not there",null);
+    public ResponseEntity<?> getEventsByLocation(String location) {
+        List<Event> events = eventRepository.findByLocation(location);
+        if (events.isEmpty()) {
+            return ResponseEntity.status(404).body("No events found in this location");
         }
-        return new Response<>(200,"filter by location",eventList);
+        return ResponseEntity.ok(events);
     }
 
-    public Response<?> deleteEvent(Long id){
-        try{
-            Optional<Event> existingEvent = eventRepository.findById(id);
-            if(existingEvent.isEmpty()){
-                return new Response<>(400,"event is not found",null);
+    public ResponseEntity<?> deleteEvent(Long id) {
+        try {
+            Optional<Event> eventOpt = eventRepository.findById(id);
+            if (eventOpt.isEmpty()) {
+                return ResponseEntity.status(404).body("Event not found");
             }
-            Event event = existingEvent.get();
-            eventRepository.delete(event);
-            return new Response<>(200,"Event successfully delete",event);
-        }
-        catch (Exception e){
+
+            eventRepository.deleteById(id);
+            return ResponseEntity.ok("Event deleted successfully");
+
+        } catch (Exception e) {
             e.printStackTrace();
-            return new Response<>(500,"Internal server error",null);
+            return ResponseEntity.status(500).body("Internal server error");
         }
+    }
+
+    public ResponseEntity<?> getAllEvents() {
+        try {
+            List<Event> events = eventRepository.findAll();
+            if (events.isEmpty()) {
+                return ResponseEntity.status(404).body("No events available");
+            }
+            return ResponseEntity.ok(events);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error");
+        }
+    }
+
+    public ResponseEntity<?> getEventById(Long id) {
+        try {
+            Optional<Event> eventOpt = eventRepository.findById(id);
+            return eventOpt.<ResponseEntity<?>>map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.status(404).body("Event not found"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error");
+        }
+    }
+
+    public List<Event> getEventsByUserId(Long userId) {
+        return eventRepository.findByCreatedById(userId);
     }
 }

@@ -2,12 +2,10 @@ package com.Booking.Ticket_Booking.controller;
 
 import com.Booking.Ticket_Booking.DTO.AuthRequest;
 import com.Booking.Ticket_Booking.DTO.AuthResponse;
-import com.Booking.Ticket_Booking.DTO.Response;
 import com.Booking.Ticket_Booking.DTO.UserRequest;
 import com.Booking.Ticket_Booking.service.AuthService;
 import com.Booking.Ticket_Booking.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
-
+    private final UserService userService;
     private final AuthService authService;
 
     @PostMapping("/register")
-    public Response<?> createUser(@RequestBody UserRequest request){
-        return userService.createUser(request);
+    public ResponseEntity<ResponseEntity<?>> createUser(@RequestBody UserRequest request) {
+        ResponseEntity<?> response = userService.createUser(request);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @PostMapping("/login")

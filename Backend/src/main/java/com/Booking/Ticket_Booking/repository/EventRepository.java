@@ -15,4 +15,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     public List<Event> findByCategoryIgnoreCase(String category);
 
     public List<Event> findByLocation(String location);
+
+    public List<Event> findByCreatedById(Long userId);
 }
