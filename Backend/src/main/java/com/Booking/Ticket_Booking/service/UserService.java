@@ -2,6 +2,7 @@ package com.Booking.Ticket_Booking.service;
 
 import com.Booking.Ticket_Booking.DTO.Response;
 import com.Booking.Ticket_Booking.DTO.UserRequest;
+import com.Booking.Ticket_Booking.DTO.UserUpdateRequest;
 import com.Booking.Ticket_Booking.model.User;
 import com.Booking.Ticket_Booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<?> updateUser(UserRequest request, Long id) {
+    public ResponseEntity<?> updateUser(UserUpdateRequest request, Long id) {
         try {
             Optional<User> optionalUser = userRepository.findById(id);
             if (optionalUser.isEmpty()) {

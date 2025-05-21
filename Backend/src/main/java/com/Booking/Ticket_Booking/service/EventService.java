@@ -33,6 +33,10 @@ public class EventService {
 
             User user = userOptional.get();
 
+            if (!"ADMIN".equalsIgnoreCase(String.valueOf(user.getRole()))) {
+                return ResponseEntity.status(403).body("Only admin users can create events");
+            }
+
             Event event = Event.builder()
                     .title(request.getTitle())
                     .description(request.getDescription())

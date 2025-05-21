@@ -1,6 +1,7 @@
 package com.Booking.Ticket_Booking.model;
 
 import com.Booking.Ticket_Booking.model.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,13 +30,16 @@ public class User implements UserDetails {
     private UserRole role;
     private LocalDateTime created_at;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Wishlist> wishlist;
 
     @Override

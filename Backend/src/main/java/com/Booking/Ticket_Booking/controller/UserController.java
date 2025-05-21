@@ -1,6 +1,7 @@
 package com.Booking.Ticket_Booking.controller;
 
 import com.Booking.Ticket_Booking.DTO.UserRequest;
+import com.Booking.Ticket_Booking.DTO.UserUpdateRequest;
 import com.Booking.Ticket_Booking.model.User;
 import com.Booking.Ticket_Booking.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class UserController {
         return userService.createUser(request);
     }
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserRequest request) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
         return userService.updateUser(request, id);
     }
     @DeleteMapping("/delete/{id}")
