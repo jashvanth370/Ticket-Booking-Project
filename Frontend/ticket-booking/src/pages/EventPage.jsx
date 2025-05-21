@@ -11,7 +11,7 @@ const EventPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { userId, token, role, logout } = useAuthStore();
+  const { logout } = useAuthStore();
 
 
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -62,11 +62,7 @@ const EventPage = () => {
       } finally {
         setLoading(false);
       }
-
-
     };
-
-
 
     fetchEvents();
   }, []);
@@ -136,10 +132,10 @@ const EventPage = () => {
       {error && <p className="error">Error: {error.message}</p>}
 
       {!loading && !error && (
-        <div className="event-list">
+        <div className="event-list" onClick={() => navigate('/bookings')}>
           {filteredEvents.length > 0 ? (
             filteredEvents.map((event) => (
-              <div key={event.id} className="event-card">
+              <div key={event.id} className="event-card" >
                 <h2>{event.title}</h2>
                 <p><strong>Date:</strong> {event.created_at}</p>
                 <p><strong>Location:</strong> {event.location}</p>
@@ -148,7 +144,8 @@ const EventPage = () => {
                 <p><strong>Status:</strong> {event.status}</p>
                 <p><strong>Available Tickets:</strong> {event.available_tickets}</p>
                 <p><strong>Description:</strong> {event.description}</p>
-                <button className="book-button" onClick={() => navigate('/bookings')}>Book Now</button>
+                <button className="book-button" onClick={() => navigate('/bookings')}>Book Now</button><br></br>
+                <button className="book-button" onClick={() => navigate('/wishlist')}> Wishlist </button>
               </div>
             ))
           ) : (

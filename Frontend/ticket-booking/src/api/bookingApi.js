@@ -11,9 +11,9 @@ export const createBooking = (data, token,userId) => {
   });
 }
 
-// export const getMyBookings = () => api.get('/bookings/me');
+export const getMyBookings = (id) => api.get(`/booking/getMyBooking/${id}`);
 
-// export const getAllBookings = () => api.get('/bookings/getAllBookings');
+export const getAllBookings = () => api.get('/booking/getAllBooking');
 
 // export const deleteBooking = (id) => api.delete(`/bookings/${id}`);
 

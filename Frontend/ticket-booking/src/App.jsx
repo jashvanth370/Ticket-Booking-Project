@@ -5,6 +5,9 @@ import EventPage from './pages/EventPage';
 import BookingPage from './pages/BookingPage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import '../src/styles/App.css'
+import AdminDashboard from './pages/AdminDashboard';
+import UserDashboard from './pages/UserDashboard';
 
 
 
@@ -12,14 +15,20 @@ function App() {
   return (
 
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/events" element={<EventPage />} />
-        <Route path="/bookings" element={<BookingPage />} />
-      </Routes>
-      <Footer />
+      <div className="app-container">
+        <Navbar />
+        <main className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/events" element={<EventPage />} />
+          <Route path="/bookings" element={<BookingPage />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/user-dashboard" element={<UserDashboard />} />
+        </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   )
 }

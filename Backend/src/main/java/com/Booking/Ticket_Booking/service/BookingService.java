@@ -102,4 +102,17 @@ public class BookingService {
         }
     }
 
+    public ResponseEntity<?> getBookingByUser(Long userId){
+        try{
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+            List<Booking> bookingList = bookingRepository.findByUser(user);
+            return  ResponseEntity.ok(bookingList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error");
+        }
+    }
+
 }

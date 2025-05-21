@@ -24,4 +24,9 @@ public class BookingController {
     public ResponseEntity<?> getAllBookings(){
         return bookingService.getAllBooking();
     }
+
+    @GetMapping("/getMyBooking/{userId}")
+    public ResponseEntity<?> getBookingByUser(@PathVariable Long userId){
+        return bookingService.getBookingByUser(userId);
+    }
 }

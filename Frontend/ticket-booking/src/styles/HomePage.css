@@ -1,6 +1,6 @@
 .home-container {
   font-family: 'Segoe UI', sans-serif;
-  color: #f0e0e6;
+  /* background-color: #e9bdd2; */
 }
 
 .hero-section {
@@ -109,7 +109,7 @@
 
 .event-card {
   background-color: #3A0519;
-  width: 480px;
+  width: 580px;
   height: 440px;
   border-radius: 10px;
   overflow: hidden;
@@ -126,7 +126,7 @@
 }
 
 .event-card img {
-  width: 100%;
+  width: 300px;
   border-radius: 20px;
   height: 280px;
   object-fit: cover;

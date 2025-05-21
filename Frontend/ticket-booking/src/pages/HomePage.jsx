@@ -5,7 +5,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="">
+    <div className="home-container">
       <header className="hero-section">
         <div className="hero-content">
           <h1>Welcome to Eventify</h1>

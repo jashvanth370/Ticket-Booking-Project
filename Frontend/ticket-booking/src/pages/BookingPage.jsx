@@ -23,7 +23,7 @@ const BookingForm = () => {
     setMessage('');
     setLoading(true);
 
-    const userId = JSON.parse(localStorage.getItem('user'));
+    const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
 
     if (!userId || !token) {
@@ -47,7 +47,8 @@ const BookingForm = () => {
       console.log(token)
       if (successStatus.includes(response.status)) {
         setMessage("Booking successful!");
-        navigate('/bookings');
+        alert("Booking Successfully ")
+        navigate('/events');
       } else {
         setMessage("Booking failed. Please try again.");
       }

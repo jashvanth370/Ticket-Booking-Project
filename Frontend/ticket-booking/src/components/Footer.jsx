@@ -9,7 +9,11 @@ function Footer() {
             <div className="footer-container">
                 <div className="footer-about">
                     <h3>Tickets Booking System</h3>
-                    <p>Empowering seamless global trade by connecting businesses worldwide through secure and reliable import-export solutions.</p>
+                    <p>Simplifying event access by connecting users with their favorite events in just a few clicks.
+                        Secure and fast ticket bookings for concerts, sports, conferences, and more.
+                        Empowering event organizers to manage and promote their events efficiently.
+                        Seamless user experience from event discovery to payment and ticket confirmation.
+                        Real-time availability tracking to ensure users always get updated event information.</p>
                 </div>
 
                 <div className="footer-links">
@@ -17,7 +21,7 @@ function Footer() {
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="/about">About</a></li>
-                        <li><a href="/products">Products</a></li>
+                        <li><a href="/events">Events</a></li>
                         <li><a href="/contact">Contact</a></li>
                     </ul>
                 </div>

@@ -18,12 +18,12 @@ const Navbar = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/');
+        navigate('/home');
     };
 
     return (
         <nav className="navbar">
-            <div className="logo">🎟️ Click2Event</div>
+            <div className="logo" onClick={()=>navigate("/home")}>🎟️ Click2Event</div>
 
             <div className="hamburger" onClick={toggleMenu}>
                 {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -33,11 +33,11 @@ const Navbar = () => {
                 {user === 'ADMIN' && (
                     <>
 
-                        <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
+                        <li><NavLink to="/admin-dashboard" onClick={closeMenu} className="text-blue-600 underline">
                             <FaUser size={30}/> 
                         </NavLink></li>
 
-                        <li><NavLink onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
+                        <li><NavLink to="/home" onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
                             <FaSignOutAlt size={34}/>
                         </NavLink ></li>
 
@@ -47,8 +47,8 @@ const Navbar = () => {
                 {user === 'USER' && (
                     <>
 
-                        <li><NavLink to="/userDashboard" onClick={closeMenu} className="text-blue-600 underline">
-                            <FaUser size={28}/> 
+                        <li><NavLink to="/user-dashboard" onClick={closeMenu} className="text-blue-600 underline">
+                            <FaUser size={30}/> 
                         </NavLink></li>
 
                         <li>
