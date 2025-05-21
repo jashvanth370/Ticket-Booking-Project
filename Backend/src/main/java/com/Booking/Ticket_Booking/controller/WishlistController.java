@@ -28,4 +28,9 @@ public class WishlistController {
     public ResponseEntity<?> getAllWishlist(){
         return wishlistService.getAllWishlist();
     }
+
+    @GetMapping("/getWishlist/user/{userId}")
+    public ResponseEntity<?> getWishlistByUserId(@PathVariable Long userId){
+        return wishlistService.getWishlistByUserId(userId);
+    }
 }

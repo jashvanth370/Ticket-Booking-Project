@@ -11,10 +11,13 @@ import com.Booking.Ticket_Booking.repository.BookingRepository;
 import com.Booking.Ticket_Booking.repository.EventRepository;
 import com.Booking.Ticket_Booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,45 +32,74 @@ public class BookingService {
     @Autowired
     public EventRepository eventRepository;
 
-    public Response<?> createBooking(BookingRequest bookingRequest,Long id) {
+    public ResponseEntity<?> createBooking(BookingRequest bookingRequest, Long userId) {
         try {
-            Optional<User> existingUser = userRepository.findById(id);
-            if(existingUser.isEmpty()){
-                return new Response<>(400,"User not found",null);
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+            Event event = eventRepository.findById(bookingRequest.getEventId())
+                    .orElseThrow(() -> new IllegalArgumentException("Event not found"));
+
+            int requestedQuantity = bookingRequest.getQuantity();
+            if (requestedQuantity <= 0) {
+                return ResponseEntity
+                        .badRequest()
+                        .body("Quantity must be greater than 0");
             }
 
-            User user = existingUser.get();
-
-            Optional<Event> existingEvent = eventRepository.findById(bookingRequest.getEventId());
-            if(existingEvent.isEmpty()){
-                return new Response<>(400,"Event not found",null);
-            }
-            Event event = existingEvent.get();
-
-            if (bookingRequest.getQuantity() > event.getAvailable_tickets()) {
-                return new Response<>(400, "Not enough tickets available", null);
+            if (requestedQuantity > event.getAvailable_tickets()) {
+                return ResponseEntity
+                        .badRequest()
+                        .body("Not enough tickets available");
             }
 
-            double totalAmount = bookingRequest.getQuantity() * event.getPrice();
+            // Calculate total amount
+            double totalAmount = requestedQuantity * event.getPrice();
 
-            Booking booking = new Booking();
-            booking.setUser(user);
-            booking.setEvent(event);
-            booking.setTotalAmount(totalAmount);
-            booking.setQuantity(bookingRequest.getQuantity());
-            booking.setBookingStatus(BookingStatus.PENDING);
-            booking.setBookingTime(LocalDateTime.now());
-            booking.setPaymentStatus(PaymentStatus.PENDING);
+            Booking booking = Booking.builder()
+                    .user(user)
+                    .event(event)
+                    .quantity(requestedQuantity)
+                    .totalAmount(totalAmount)
+                    .bookingStatus(BookingStatus.PENDING)
+                    .paymentStatus(PaymentStatus.PENDING)
+                    .bookingTime(LocalDateTime.now())
+                    .build();
 
-            event.setAvailable_tickets(event.getAvailable_tickets() - bookingRequest.getQuantity());
+
+            event.setAvailable_tickets(event.getAvailable_tickets() - requestedQuantity);
+
+            // Save to DB
             eventRepository.save(event);
-
             bookingRepository.save(booking);
 
-            return new Response<>(200, "Booking successfully", booking);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(booking);
+
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            return new Response<>(500, "Internal server error", null);
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Something went wrong while processing your booking.");
         }
     }
+
+    public ResponseEntity<?> getAllBooking(){
+        try{
+            List<Booking> bookingList = bookingRepository.findAll();
+            if(bookingList.isEmpty()){
+                return ResponseEntity.status(404).body("No bookings available");
+            }
+            return ResponseEntity.ok(bookingList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error");
+        }
+    }
+
 }

@@ -100,4 +100,22 @@ public class WishlistService {
             return ResponseEntity.status(500).body("Internal server error");
         }
     }
+
+    public ResponseEntity<?> getWishlistByUserId(Long userId) {
+        try {
+            System.out.println("userId");
+            Optional<User> userOptional = userRepository.findById(userId);
+
+            if (userOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+
+            List<Wishlist> wishlistItems = wishlistRepository.findByUserId(userId);
+
+            return ResponseEntity.ok(wishlistItems);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Internal server error");
+        }
+    }
 }
