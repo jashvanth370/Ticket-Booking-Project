@@ -23,7 +23,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <div className="logo">🎟️ Ticket Booking</div>
+            <div className="logo">🎟️ Click2Event</div>
 
             <div className="hamburger" onClick={toggleMenu}>
                 {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -34,11 +34,11 @@ const Navbar = () => {
                     <>
 
                         <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
-                            <FaUser size={24}/> 
+                            <FaUser size={30}/> 
                         </NavLink></li>
 
                         <li><NavLink onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
-                            <FaSignOutAlt size={24}/>
+                            <FaSignOutAlt size={34}/>
                         </NavLink ></li>
 
                     </>

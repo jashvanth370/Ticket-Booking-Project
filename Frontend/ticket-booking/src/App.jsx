@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import EventPage from './pages/EventPage';
 import BookingPage from './pages/BookingPage';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/events" element={<EventPage />} />
         <Route path="/bookings" element={<BookingPage />} />
       </Routes>
+      <Footer />
     </Router>
   )
 }

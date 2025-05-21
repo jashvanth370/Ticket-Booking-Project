@@ -38,21 +38,21 @@ const HomePage = () => {
         <h2>Popular Events</h2>
         <div className="event-cards">
           <div className="event-card">
-            <img src="/images/concert.jpg" alt="Concert" />
+            <img src="/images/music_concert.jpg" alt="Concert" />
             <div className="event-info">
               <h4>Live Music Concert</h4>
               <p>Feel the vibe of electrifying live music!</p>
             </div>
           </div>
           <div className="event-card">
-            <img src="/images/festival.jpg" alt="Festival" />
+            <img src="/images/food.jpg" alt="Festival" />
             <div className="event-info">
               <h4>Food & Culture Festival</h4>
               <p>Explore global tastes and cultural shows.</p>
             </div>
           </div>
           <div className="event-card">
-            <img src="/images/theatre.jpg" alt="Theatre" />
+            <img src="/images/drama.jpg" alt="Theatre" />
             <div className="event-info">
               <h4>Drama Night</h4>
               <p>Experience the magic of live theatre performances.</p>

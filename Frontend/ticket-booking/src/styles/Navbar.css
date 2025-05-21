@@ -1,6 +1,5 @@
 /* Navbar.css */
 .navbar {
-  background-color: #1E201E;
   color: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -8,11 +7,15 @@
   padding: 1rem 2rem;
   position: relative;
   z-index: 10;
+  background-color: #ac3c67;
+  border-radius: 25px;
+  margin: 5px;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
+  color: #ffffff;
 }
 
 .hamburger {
@@ -46,7 +49,7 @@
 .nav-links li a:hover,
 .logout-button:hover {
   background-color: none;
-  color: #00b894;
+  color: #e590b9;
 }
 
 .logout-button {

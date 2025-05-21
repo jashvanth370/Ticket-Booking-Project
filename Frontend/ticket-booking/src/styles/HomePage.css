@@ -1,28 +1,32 @@
 .home-container {
   font-family: 'Segoe UI', sans-serif;
-  color: #333;
+  color: #f0e0e6;
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #1E201E, #00b894);
+  background: linear-gradient(135deg, #3A0519, #670D2F);
   color: white;
   padding: 100px 20px;
   text-align: center;
+  border-radius: 20px;
+  margin-top: 40px;
 }
 
 .hero-content h1 {
   font-size: 3.2rem;
   margin-bottom: 10px;
+  color: #ffffff;
 }
 
 .hero-content p {
   font-size: 1.2rem;
   margin-bottom: 25px;
+  color: #f7dbe8;
 }
 
 .cta-button {
-  background-color: #ffeaa7;
-  color: #2d3436;
+  background-color: #A53860;
+  color: #ffffff;
   border: none;
   padding: 14px 28px;
   font-size: 1rem;
@@ -33,18 +37,20 @@
 }
 
 .cta-button:hover {
-  background-color: #fdcb6e;
+  background-color: #670D2F;
 }
 
 .features-section {
   padding: 60px 20px;
-  background-color: #f1f2f6;
+  background-color: #ffffff;
   text-align: center;
+  color: #fcecf1;
 }
 
 .features-section h2 {
   font-size: 2rem;
   margin-bottom: 40px;
+  color: #A53860;
 }
 
 .features {
@@ -55,36 +61,43 @@
 }
 
 .feature-box {
-  background-color: #ffffff;
+  background-color: #670D2F;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   padding: 30px;
-  width: 280px;
+  width: 360px;
+  height: 200px;
   transition: transform 0.2s;
+  color: #f8f0f4;
 }
 
 .feature-box:hover {
   transform: translateY(-5px);
+  background-color: #A53860;
 }
 
 .feature-box h3 {
   font-size: 1.4rem;
   margin-bottom: 12px;
+  color: #ffffff;
 }
 
 .feature-box p {
   font-size: 1rem;
+  color: #f3e6ea;
 }
 
 .events-preview {
   padding: 60px 20px;
-  background: #dfe6e9;
+  background: #ffffff;
   text-align: center;
+  color: #fce7f1;
 }
 
 .events-preview h2 {
   font-size: 2rem;
   margin-bottom: 40px;
+  color: #0a0a0a;
 }
 
 .event-cards {
@@ -95,31 +108,49 @@
 }
 
 .event-card {
-  background-color: #fff;
-  width: 280px;
+  background-color: #3A0519;
+  width: 480px;
+  height: 440px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease;
+  color: #070707;
+  
 }
+
 
 .event-card:hover {
   transform: scale(1.03);
+  background-color: #e491b1;
 }
 
 .event-card img {
   width: 100%;
-  height: 180px;
+  border-radius: 20px;
+  height: 280px;
   object-fit: cover;
+  margin-bottom: 20px;
 }
 
 .event-info {
   padding: 15px;
+  background-color: #A53860;
+  border-radius: 10px;
+  box-shadow: #070707;
+  
 }
 
 .event-info h4 {
   margin-bottom: 8px;
   font-size: 1.2rem;
+  color: #ffffff;
 }
 
+.event-info p{
+  color: #ffffff;
+}
 
+.event-info h4,p:hover{
+  color: #070707;
+}
