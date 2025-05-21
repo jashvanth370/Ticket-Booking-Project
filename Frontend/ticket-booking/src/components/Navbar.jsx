@@ -1,51 +1,72 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaHome, FaInfoCircle, FaBoxOpen, FaProductHunt, FaWeightHanging, FaThinkPeaks } from 'react-icons/fa';
-import { FaBoltLightning, FaPerson, FaPersonBooth, FaPersonHiking } from 'react-icons/fa6';
-// import '../styles/Navbar.css';
-// import useAuthStore from '../store/AuthStore';
-import LoginPage from '../pages/LoginPage';
-import HomePage from '../pages/HomePage';
+import { FaBars, FaTimes, FaSignOutAlt ,FaChartBar, FaThLarge, FaClipboardList, FaDashcube, FaBookmark, FaStar, FaCartArrowDown, FaBorderStyle, FaUser, FaChartLine } from 'react-icons/fa';
+import { FaBoltLightning, FaBorderAll, FaPerson} from 'react-icons/fa6';
+
+import '../styles/Navbar.css';
+import useAuthStore from '../store/AuthStore';
 
 const Navbar = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const toggleMenu = () => {
-        setMobileMenuOpen(!isMobileMenuOpen);
-    };
+    const toggleMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
+    const closeMenu = () => setMobileMenuOpen(false);
+    const navigate = useNavigate();
+    const { logout } = useAuthStore();
+    
+    const user = localStorage.getItem('role')
+
 
     const handleLogout = () => {
         logout();
         navigate('/');
     };
 
-    const closeMenu = () => {
-        setMobileMenuOpen(false);
-    };
     return (
-        <nav>
-            <div> Ticket Booking </div>
+        <nav className="navbar">
+            <div className="logo">🎟️ Ticket Booking</div>
+
             <div className="hamburger" onClick={toggleMenu}>
                 {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
             </div>
+
             <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
-                <li>
-                    <Link to="/" onClick={closeMenu}><HomePage /></Link>
-                </li>
-                <li>
-                    <Link to="/login" onClick={closeMenu}><LoginPage /></Link>
-                </li>
-                <li>
-                    <Link to="/register" onClick={closeMenu}>Register</Link>
-                </li>
-                <li>
-                    <Link to="/bookings" onClick={closeMenu}>Bookings</Link>
-                </li>
-                <li>
-                    <button onClick={handleLogout}>Logout</button>
-                </li>
+                {user === 'ADMIN' && (
+                    <>
+
+                        <li><NavLink to="/admin" onClick={closeMenu} className="text-blue-600 underline">
+                            <FaUser size={24}/> 
+                        </NavLink></li>
+
+                        <li><NavLink onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
+                            <FaSignOutAlt size={24}/>
+                        </NavLink ></li>
+
+                    </>
+                )}
+
+                {user === 'USER' && (
+                    <>
+
+                        <li><NavLink to="/userDashboard" onClick={closeMenu} className="text-blue-600 underline">
+                            <FaUser size={28}/> 
+                        </NavLink></li>
+
+                        <li>
+                            <NavLink to="/wishlist" onClick={closeMenu} className="" >
+                            <FaCartArrowDown size={30}/>
+                        </NavLink>
+                        </li>
+
+                        <li><NavLink onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
+                            <FaSignOutAlt size={30}/>
+                        </NavLink></li>
+
+                    </>
+                )}
+                
             </ul>
         </nav>
     );
-}
+};
 
-export default Navbar
+export default Navbar;

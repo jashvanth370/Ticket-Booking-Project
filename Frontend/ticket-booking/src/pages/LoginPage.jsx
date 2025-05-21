@@ -2,32 +2,31 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 import '../styles/LoginPage.css';
+import useAuthStore from '../store/AuthStore';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const {login} = useAuthStore();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await api.post('/auth/login', {
-        email,
-        password,
-      });
+      const response = await api.post('/auth/login', { email, password });
 
-      const { token } = response.data;
-      const userId = response.data.userId;
-      localStorage.setItem('user', JSON.stringify(userId));
-      localStorage.setItem('token', token);
+      const { token, userId, role } = response.data;
+      login({ userId, token, role });
 
       navigate('/');
     } catch (err) {
       setError('Invalid email or password');
     }
   };
+
+  
 
   return (
     <div className="login-container">
@@ -56,6 +55,7 @@ const LoginPage = () => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <button type="submit">Login</button>
+        
       </form>
     </div>
   );
