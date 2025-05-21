@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import '../src/styles/App.css'
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
+import WishlistPage from './pages/Wishlist';
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/bookings" element={<BookingPage />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
         </Routes>
         </main>
         <Footer />

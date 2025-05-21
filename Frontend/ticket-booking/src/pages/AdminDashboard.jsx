@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllBookings } from '../api/bookingApi';
+import { getAllBookings, getMyBookings } from '../api/bookingApi';
 import '../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -10,7 +10,8 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await getAllBookings();
+        const userId = localStorage.getItem('userId')
+        const response = await getMyBookings(userId);
         console.log(response.data)
         setBookings(response.data || []);
       } catch (err) {
@@ -26,7 +27,12 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      <h2>📋 All Bookings</h2>
+      {/* {bookings.map((booking,index)=>(
+           <th>Hi {booking.user.role} , {booking.user.name}</th>
+          //  <th>ID number is : {bookings.user.id}</th>
+      ))}
+       */}
+      <h2>📋 My Bookings</h2>
 
       {loading ? (
         <p>Loading bookings...</p>
@@ -39,7 +45,6 @@ const AdminDashboard = () => {
           <thead>
             <tr>
               <th>Booking ID</th>
-              <th>User ID</th>
               <th>Event ID</th>
               <th>Quantity</th>
               <th>Booking Status</th>
@@ -50,9 +55,9 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {bookings.map((booking, index) => (
-              <tr key={booking.id}>
+                <tr key={booking.id}>
+                
                 <td>{booking.id}</td>
-                <td>{booking.user.id}</td>
                 <td>{booking.event.id}</td>
                 <td>{booking.quantity}</td>
                 <td>{booking.bookingStatus || 'Pending'}</td>

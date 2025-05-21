@@ -17,6 +17,7 @@ const UserDashboard = () => {
         console.log(userId)
         const response = await getMyBookings(userId, token);
         setBookings(response.data || []);
+        console.log(response.data)
       } catch (err) {
         console.error("Error fetching user bookings:", err);
         setError("Failed to load your bookings.");
@@ -42,9 +43,10 @@ const UserDashboard = () => {
         <table className="user-bookings-table">
           <thead>
             <tr>
-              <th>#</th>
+              <th>Booking ID</th>
               <th>Event Title</th>
               <th>Quantity</th>
+              <th>Location</th>
               <th>Status</th>
               <th>Booked At</th>
             </tr>
@@ -52,9 +54,10 @@ const UserDashboard = () => {
           <tbody>
             {bookings.map((booking, index) => (
               <tr key={booking.id}>
-                <td>{index + 1}</td>
-                <td>{booking.title || 'N/A'}</td>
+                <td>{booking.id}</td>
+                <td>{booking.event.title || 'N/A'}</td>
                 <td>{booking.quantity}</td>
+                <td>{booking.event.location}</td>
                 <td>{booking.bookingStatus || 'Pending'}</td>
                 <td>{new Date(booking.bookingTime).toLocaleString()}</td>
               </tr>

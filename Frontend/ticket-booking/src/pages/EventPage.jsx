@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import "../styles/EventPage.css";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/AuthStore";
+import { createWishlistItem } from "../api/wishlistApi";
+
 
 
 const EventPage = () => {
@@ -12,6 +14,7 @@ const EventPage = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { logout } = useAuthStore();
+  const [message, setMessage] = useState('');
 
 
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -70,8 +73,22 @@ const EventPage = () => {
 
   const handleLogout = () => {
     logout();
-    localStorage.removeItem('events',events);
+    localStorage.removeItem('events', events);
     navigate('/login');
+  };
+
+
+  const handleAddToWishlist = async (eventId) => {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    const token = localStorage.getItem('token');
+
+    try {
+      const res = await createWishlistItem(userId, eventId, token);
+      setMessage('Added to wishlist!');
+    } catch (err) {
+      console.error('Error adding to wishlist', err);
+      setMessage('Already in wishlist or failed to add.');
+    }
   };
 
   useEffect(() => {
@@ -145,8 +162,7 @@ const EventPage = () => {
                 <p><strong>Available Tickets:</strong> {event.available_tickets}</p>
                 <p><strong>Description:</strong> {event.description}</p>
                 <button className="book-button" onClick={() => navigate('/bookings')}>Book Now</button><br></br>
-                <button className="book-button" onClick={() => navigate('/wishlist')}> Wishlist </button>
-              </div>
+                <button onClick={() => handleAddToWishlist(event.id)}>Add to Wishlist</button>              </div>
             ))
           ) : (
             <p>No events match your filters.</p>
