@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaSignOutAlt ,FaChartBar, FaThLarge, FaClipboardList, FaDashcube, FaBookmark, FaStar, FaCartArrowDown, FaBorderStyle, FaUser, FaChartLine, FaUserAltSlash, FaSign, FaSignInAlt } from 'react-icons/fa';
+import { FaBars, FaTimes, FaSignOutAlt ,FaChartBar, FaThLarge, FaClipboardList, FaDashcube, FaBookmark, FaStar, FaCartArrowDown, FaBorderStyle, FaUser, FaChartLine, FaUserAltSlash, FaSign, FaSignInAlt, FaCartPlus } from 'react-icons/fa';
 import { FaBoltLightning, FaBorderAll, FaPerson} from 'react-icons/fa6';
 
 import '../styles/Navbar.css';
@@ -56,13 +56,14 @@ const Navbar = () => {
 
                         <li>
                             <NavLink to="/wishlist" onClick={closeMenu} className="" >
-                            <FaCartArrowDown size={30}/>
+                            <FaCartPlus size={30}/>
                         </NavLink>
                         </li>
 
                         <li><NavLink onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">
                             <FaSignOutAlt size={30}/>
                         </NavLink></li>
+                        
 
                     </>
                 )}

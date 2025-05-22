@@ -9,6 +9,7 @@ import '../src/styles/App.css'
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import WishlistPage from './pages/Wishlist';
+import ReviewPage from './pages/ReviewPage';
 
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/review" element={<ReviewPage />} />
         </Routes>
         </main>
         <Footer />

@@ -1,7 +1,5 @@
 package com.Booking.Ticket_Booking.DTO;
 
-import com.Booking.Ticket_Booking.model.Event;
-import com.Booking.Ticket_Booking.model.User;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

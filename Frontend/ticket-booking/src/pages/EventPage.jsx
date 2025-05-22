@@ -4,6 +4,8 @@ import "../styles/EventPage.css";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/AuthStore";
 import { createWishlistItem } from "../api/wishlistApi";
+import ReviewPage from './ReviewPage';
+
 
 
 
@@ -15,6 +17,8 @@ const EventPage = () => {
   const navigate = useNavigate();
   const { logout } = useAuthStore();
   const [message, setMessage] = useState('');
+  const [selectedEventId, setSelectedEventId] = useState(null);
+
 
 
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -82,13 +86,26 @@ const EventPage = () => {
     const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
 
+    const reviewData = {
+      userId,
+      eventId,
+    };
     try {
-      const res = await createWishlistItem(userId, eventId, token);
+      const res = await createWishlistItem(reviewData, token);
       setMessage('Added to wishlist!');
+      alert("added wishlist", `${eventId}`)
     } catch (err) {
       console.error('Error adding to wishlist', err);
       setMessage('Already in wishlist or failed to add.');
     }
+  };
+
+  const handleAddToReviewSet = async (eventId) => {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    const token = localStorage.getItem('token');
+    
+    setSelectedEventId(eventId);
+    navigate('/review');
   };
 
   useEffect(() => {
@@ -115,6 +132,8 @@ const EventPage = () => {
   const uniqueLocations = Array.isArray(events)
     ? [...new Set(events.map(e => e.location))]
     : [];
+
+
 
 
   return (
@@ -149,7 +168,7 @@ const EventPage = () => {
       {error && <p className="error">Error: {error.message}</p>}
 
       {!loading && !error && (
-        <div className="event-list" onClick={() => navigate('/bookings')}>
+        <div className="event-list">
           {filteredEvents.length > 0 ? (
             filteredEvents.map((event) => (
               <div key={event.id} className="event-card" >
@@ -162,7 +181,10 @@ const EventPage = () => {
                 <p><strong>Available Tickets:</strong> {event.available_tickets}</p>
                 <p><strong>Description:</strong> {event.description}</p>
                 <button className="book-button" onClick={() => navigate('/bookings')}>Book Now</button><br></br>
-                <button onClick={() => handleAddToWishlist(event.id)}>Add to Wishlist</button>              </div>
+                <button onClick={() => handleAddToWishlist(event.id)}>Add to Wishlist</button>
+                <button onClick={() => handleAddToReviewSet(event.id)}> Review of Event </button>
+                
+              </div>
             ))
           ) : (
             <p>No events match your filters.</p>
