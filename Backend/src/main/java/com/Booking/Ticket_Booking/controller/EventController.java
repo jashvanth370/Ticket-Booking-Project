@@ -27,9 +27,10 @@ public class EventController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createEvent(@RequestBody EventRequest eventRequest) {
-        return eventService.createEvent(eventRequest);
+    @PostMapping("/create/{userId}")
+    public ResponseEntity<?> createEvent(@RequestBody EventRequest eventRequest,
+                                         @PathVariable Long userId) {
+        return eventService.createEvent(eventRequest,userId);
     }
 
     @PutMapping("/update/{id}")

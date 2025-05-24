@@ -4,6 +4,8 @@ import com.Booking.Ticket_Booking.model.enums.EventStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class EventRequest {
     @NotNull(message = "Event title is required")
@@ -22,6 +24,10 @@ public class EventRequest {
     private String category;
     @NotNull(message = "Event status is required")
     private EventStatus status;
-    private Long userId;
+    @NotNull(message = "Event happaning date is required")
+    private LocalDateTime happening_date;
+    @NotNull(message = "Event photo is required")
+    private String imageUrl;
+
 }
 

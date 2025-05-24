@@ -28,6 +28,12 @@ public class Event {
     private EventStatus status;
     private LocalDateTime created_at;
 
+    private String imageFilename;
+
+
+
+    private LocalDateTime happening_date;
+
     @ManyToOne
     private User createdBy;
 

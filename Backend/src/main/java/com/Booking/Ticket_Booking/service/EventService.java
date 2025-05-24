@@ -24,9 +24,9 @@ public class EventService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity<?> createEvent(EventRequest request) {
+    public ResponseEntity<?> createEvent(EventRequest request ,Long userId) {
         try {
-            Optional<User> userOptional = userRepository.findById(request.getUserId());
+            Optional<User> userOptional = userRepository.findById(userId);
             if (userOptional.isEmpty()) {
                 return ResponseEntity.status(404).body("User not found");
             }
@@ -47,6 +47,7 @@ public class EventService {
                     .total_tickets(request.getTotalTickets())
                     .category(request.getCategory())
                     .status(request.getStatus())
+                    .happening_date(request.getHappening_date())
                     .createdBy(user)
                     .build();
 
