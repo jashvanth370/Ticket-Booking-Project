@@ -7,7 +7,7 @@
   padding: 1rem 2rem;
   position: relative;
   z-index: 10;
-  background-color: #ac3c67;
+  background: linear-gradient(135deg, #7F55B1 60%, #9B7EBD 30%);
   border-radius: 25px;
   margin: 5px;
 }

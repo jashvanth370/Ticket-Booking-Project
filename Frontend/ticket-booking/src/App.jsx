@@ -10,6 +10,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import WishlistPage from './pages/Wishlist';
 import ReviewPage from './pages/ReviewPage';
+import AddEventPage from './pages/AddEventPage';
+import EventDetailsPage from './pages/EventDetailsPage';
+import MyEventsPage from './pages/MyEventsPage';
 
 
 
@@ -29,6 +32,10 @@ function App() {
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/review" element={<ReviewPage />} />
+          <Route path="/addEvent" element={<AddEventPage />} />
+          <Route path="/events/:id" element={<EventDetailsPage />} />
+          <Route path="/my-events" element={<MyEventsPage />} />
+
         </Routes>
         </main>
         <Footer />

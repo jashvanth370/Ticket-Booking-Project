@@ -1,0 +1,59 @@
+.add-event-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.add-event-container h2 {
+  text-align: center;
+  color: #A53860;
+  margin-bottom: 20px;
+}
+
+.add-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-event-form label {
+  font-weight: 600;
+}
+
+.add-event-form input,
+.add-event-form textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1.5px solid #A53860;
+  font-size: 1rem;
+  outline: none;
+}
+
+.add-event-form input:focus,
+.add-event-form textarea:focus {
+  border-color: #670D2F;
+}
+
+.add-event-form button {
+  background-color: #A53860;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-event-form button:hover {
+  background-color: #670D2F;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}

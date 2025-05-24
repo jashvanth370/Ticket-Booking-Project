@@ -54,6 +54,9 @@ const WishlistPage = () => {
               <button className="remove-btn" onClick={() => handleRemove(item.id)}>
                 Remove
               </button>
+              <button className="add-btn" onClick={() => handleAdd(item.id)}>
+                Book
+              </button>
             </li>
           ))}
         </ul>

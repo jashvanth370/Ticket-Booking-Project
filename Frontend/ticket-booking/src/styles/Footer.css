@@ -1,5 +1,5 @@
 .footer {
-  background: linear-gradient(135deg, #3A0519, #670D2F);
+  background: linear-gradient(135deg, #7F55B1, #9B7EBD);
   color: #ffffff;
   padding: 40px 20px;
   font-family: 'Segoe UI';
@@ -22,20 +22,20 @@
 .footer-contact {
   flex: 1;
   min-width: 250px;
-  background-color: #670D2F;
+  background-color: #9B7EBD;
   padding: 20px;
   border-radius: 10px;
 }
 
 .footer h3,
 .footer h4 {
-  color: #A53860;
+  color: #ffffff;
   margin-bottom: 15px;
 }
 
 .footer p,
 .footer a {
-  color: #f0e0e6;
+  color: #ffffff;
   text-decoration: none;
   font-size: 15px;
   line-height: 1.6;
@@ -78,7 +78,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 14px;
   color: #e0cdd4;
-  background-color: #3A0519;
+  background-color: #430A5D;
   width: 700px;
   margin-left: 400px;
   border-radius: 20px;

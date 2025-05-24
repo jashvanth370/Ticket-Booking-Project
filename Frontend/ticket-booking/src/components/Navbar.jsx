@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaSignOutAlt ,FaChartBar, FaThLarge, FaClipboardList, FaDashcube, FaBookmark, FaStar, FaCartArrowDown, FaBorderStyle, FaUser, FaChartLine, FaUserAltSlash, FaSign, FaSignInAlt, FaCartPlus } from 'react-icons/fa';
-import { FaBoltLightning, FaBorderAll, FaPerson} from 'react-icons/fa6';
+import { FaBars, FaTimes, FaSignOutAlt , FaUser, FaSignInAlt, FaCartPlus, FaPlus } from 'react-icons/fa';
 
 import '../styles/Navbar.css';
 import useAuthStore from '../store/AuthStore';
@@ -18,7 +17,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/home');
+        navigate('/');
     };
 
     return (
@@ -33,11 +32,21 @@ const Navbar = () => {
 
                 {!user && <li><NavLink  to="/login" onClick={closeMenu}> <FaSignInAlt size={32}/></NavLink></li>}
 
+                
+
                 {user === 'ADMIN' && (
                     <>
 
                         <li><NavLink to="/admin-dashboard" onClick={closeMenu} className="text-blue-600 underline">
                             <FaUser size={32}/> 
+                        </NavLink></li>
+
+                        <li><NavLink to="/addEvent" onClick={closeMenu} className="text-blue-600 underline">
+                            <FaPlus size={32}/> 
+                        </NavLink></li>
+
+                        <li><NavLink to="/my-events" onClick={closeMenu} className="text-blue-600 underline">
+                            <FaBars size={32}/> 
                         </NavLink></li>
 
                         <li><NavLink to="/home" onClick={() => { closeMenu(); handleLogout(); }} className="logout-button">

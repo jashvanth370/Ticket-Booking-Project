@@ -1,18 +1,60 @@
 import '../styles/HomePage.css'
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const images = [
+  "/images/hom10.jpg",
+  "/images/concert1.jpg",
+  "/images/food.jpg",
+  "/images/drama1.jpg",
+  "/images/home1.jpg",
+  "/images/home3.jpg",
+  "/images/drama.jpg"
+];
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [fade, setFade] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setFade(true);
+      }, 6000); // time for fade-out before switch
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="home-container">
       <header className="hero-section">
-        <div className="hero-content">
-          <h1>Welcome to Eventify</h1>
-          <p>Your one-stop platform for booking the best events in town</p>
-          <button className="cta-button" onClick={() => navigate("/events")}>
-            Explore Events
-          </button>
+        <div
+          className={`hero-image ${fade ? "fade-in" : "fade-out"}`}
+          style={{ backgroundImage: `url(${images[currentIndex]})` }}
+        >
+          <div className="hero-overlay">
+            <div className="hero-content">
+              <h1>Welcome to Eventify</h1>
+              <p>Your one-stop platform for booking the best events in town</p>
+              <div className="button-group">
+                <button className="cta-button" onClick={() => navigate("/events")}>
+                  Explore Events
+                </button>
+                <button className="cta-button">Category</button>
+              </div>
+            </div>
+            <div className="slide-indicators">
+              {images.map((_, index) => (
+                <span
+                  key={index}
+                  className={`dot ${index === currentIndex ? "active" : ""}`}
+                ></span>
+              ))}
+            </div>
+          </div>
         </div>
       </header>
 
@@ -38,10 +80,10 @@ const HomePage = () => {
         <h2>Popular Events</h2>
         <div className="event-cards">
           <div className="event-card">
-            <img src="/images/music_concert.jpg" alt="Concert" />
+            <img src="/images/concert1.jpg" alt="Concert" />
             <div className="event-info">
               <h4>Live Music Concert</h4>
-              <p>Feel the vibe of electrifying live music!</p>
+              <p>Feel the vibe of electrifying live music! music_concert</p>
             </div>
           </div>
           <div className="event-card">
@@ -52,7 +94,7 @@ const HomePage = () => {
             </div>
           </div>
           <div className="event-card">
-            <img src="/images/drama.jpg" alt="Theatre" />
+            <img src="/images/drama1.jpg" alt="Theatre" />
             <div className="event-info">
               <h4>Drama Night</h4>
               <p>Experience the magic of live theatre performances.</p>

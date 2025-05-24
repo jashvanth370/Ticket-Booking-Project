@@ -40,7 +40,7 @@ const ReviewPage = ({ eventId }) => {
 
   return (
     <div className="review-form">
-      <h2>📝 Leave a Review</h2>
+      <h2> Leave a Review</h2>
       <form onSubmit={handleSubmit}>
         <div className="star-rating">
           {[...Array(5)].map((_, index) => {

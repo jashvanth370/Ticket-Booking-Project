@@ -1,0 +1,109 @@
+.my-events-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.my-events-container h2 {
+  text-align: center;
+  color: #670D2F;
+  margin-bottom: 20px;
+}
+
+.my-events-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.my-events-table th,
+.my-events-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.my-events-table th {
+  background-color: #f3eef2;
+  color: #670D2F;
+}
+
+.error {
+  color: red;
+  font-weight: 600;
+  text-align: center;
+}
+.edit-event-form {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f4f0f5;
+  border-radius: 8px;
+}
+
+.edit-event-form input {
+  display: block;
+  margin-bottom: 12px;
+  padding: 8px;
+  width: 100%;
+}
+
+.edit-event-form button {
+  margin-right: 10px;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.modal-content input {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+.book-button {
+  margin-top: 10px;
+  background-color: #9B7EBD;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.book-button:hover {
+  background-color: #380f67;
+}

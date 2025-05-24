@@ -10,8 +10,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
+        const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId')
-        const response = await getMyBookings(userId);
+        const response = await getMyBookings(userId,token);
         console.log(response.data)
         setBookings(response.data || []);
       } catch (err) {
@@ -32,7 +33,7 @@ const AdminDashboard = () => {
           //  <th>ID number is : {bookings.user.id}</th>
       ))}
        */}
-      <h2>📋 My Bookings</h2>
+      <h2> Bookings</h2>
 
       {loading ? (
         <p>Loading bookings...</p>

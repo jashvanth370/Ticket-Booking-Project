@@ -1,40 +1,47 @@
 .user-dashboard {
-  padding: 2rem;
   max-width: 1000px;
-  margin: auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 20px auto;
+  padding: 30px;
+  background: linear-gradient(to bottom right, #7F55B1 60%, #9B7EBD 30%);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(255, 254, 254, 0.2);
+  color: #333;
+  text-align: center;
 }
 
 .user-dashboard h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #333;
+  color: #7F55B1;
+  font-size: 2rem;
+  margin-bottom: 25px;
 }
 
 .user-bookings-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  background-color: #fdfdfd;
+  box-shadow: 0 4px 12px rgba(255, 254, 254, 0.2);
 }
 
 .user-bookings-table th,
 .user-bookings-table td {
-  padding: 12px 15px;
+  padding: 14px 18px;
   border: 1px solid #ddd;
   text-align: center;
+  font-size: 0.95rem;
 }
 
 .user-bookings-table th {
-  background-color: #007bff;
+  background-color: #7F55B1;
   color: white;
+  font-weight: 600;
 }
 
 .user-bookings-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f3f0f9;
 }
 
 .error {
-  color: red;
-  text-align: center;
+  color: #d63031;
+  font-size: 1rem;
+  margin-top: 20px;
 }

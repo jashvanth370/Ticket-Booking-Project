@@ -1,31 +1,71 @@
 .home-container {
   font-family: 'Segoe UI', sans-serif;
-  /* background-color: #e9bdd2; */
 }
 
+/* ========== Hero Section ========== */
 .hero-section {
-  background: linear-gradient(135deg, #3A0519, #670D2F);
-  color: white;
-  padding: 100px 20px;
-  text-align: center;
+  position: relative;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
   border-radius: 20px;
-  margin-top: 40px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.4); /* semi-transparent overlay */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  color: #fff;
+}
+
+.hero-content {
+  color: #fff;
+  text-align: right;
+  padding-right: 40px;
 }
 
 .hero-content h1 {
   font-size: 3.2rem;
   margin-bottom: 10px;
-  color: #ffffff;
 }
 
 .hero-content p {
   font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #f7dbe8;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin-top: 10px;
 }
 
 .cta-button {
-  background-color: #A53860;
+  background-color: #9B7EBD;
   color: #ffffff;
   border: none;
   padding: 14px 28px;
@@ -37,20 +77,45 @@
 }
 
 .cta-button:hover {
-  background-color: #670D2F;
+  background-color: #7F55B1;
 }
 
+/* ========== Slide Indicators ========== */
+.slide-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #fff;
+}
+
+/* ========== Features Section ========== */
 .features-section {
-  padding: 60px 20px;
-  background-color: #ffffff;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #7F55B1 60%, #9B7EBD 30%);
   text-align: center;
   color: #fcecf1;
+  border-radius: 15px;
+  margin-top: 30px;
+  padding-bottom: 30px;
 }
 
 .features-section h2 {
   font-size: 2rem;
   margin-bottom: 40px;
-  color: #A53860;
+  color: #ffffff;
 }
 
 .features {
@@ -61,10 +126,10 @@
 }
 
 .feature-box {
-  background-color: #670D2F;
+  background-color: #9B7EBD;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  padding: 30px;
+  box-shadow: 0 4px 12px rgba(255, 254, 254, 0.2);
+  padding: 40px;
   width: 360px;
   height: 200px;
   transition: transform 0.2s;
@@ -73,7 +138,7 @@
 
 .feature-box:hover {
   transform: translateY(-5px);
-  background-color: #A53860;
+  background-color: #7F55B1;
 }
 
 .feature-box h3 {
@@ -87,70 +152,58 @@
   color: #f3e6ea;
 }
 
+/* ========== Events Preview ========== */
 .events-preview {
-  padding: 60px 20px;
-  background: #ffffff;
+  padding: 10px 10px;
   text-align: center;
-  color: #fce7f1;
 }
 
 .events-preview h2 {
   font-size: 2rem;
-  margin-bottom: 40px;
-  color: #0a0a0a;
+  margin-bottom: 20px;
+  color: #7F55B1;
 }
 
 .event-cards {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 65px;
+  transition: transform 0.3s ease;
 }
 
 .event-card {
-  background-color: #3A0519;
-  width: 580px;
-  height: 440px;
+  background-color: #7F55B1;
+  width: 590px;
+  height: 500px;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 15px rgba(187, 124, 182, 0.25);
   transition: transform 0.3s ease;
-  color: #070707;
-  
+  color: #ffffff;
 }
-
 
 .event-card:hover {
   transform: scale(1.03);
-  background-color: #e491b1;
 }
 
 .event-card img {
   width: 300px;
   border-radius: 20px;
-  height: 280px;
+  height: 300px;
   object-fit: cover;
   margin-bottom: 20px;
 }
 
 .event-info {
   padding: 15px;
-  background-color: #A53860;
+  background-color: #9B7EBD;
   border-radius: 10px;
-  box-shadow: #070707;
-  
+  color: #ffffff;
 }
 
 .event-info h4 {
   margin-bottom: 8px;
   font-size: 1.2rem;
   color: #ffffff;
-}
-
-.event-info p{
-  color: #ffffff;
-}
-
-.event-info h4,p:hover{
-  color: #070707;
 }
