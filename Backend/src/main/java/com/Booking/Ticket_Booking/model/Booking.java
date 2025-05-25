@@ -22,7 +22,10 @@ public class Booking {
 
     private PaymentStatus paymentStatus;
     private BookingStatus bookingStatus;
-    private LocalDateTime bookingTime;
+    private LocalDateTime setPaymentTime;
+    private String paymentIntentId;
+    private String paymentMethod;
+
 
     @ManyToOne
     private User user;
@@ -32,4 +35,8 @@ public class Booking {
 
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
     private Payment payment;
+
+
+    public void setPaymentTime(LocalDateTime now) {
+    }
 }

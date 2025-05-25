@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 public class BookingRequest {
-    @NotNull(message = "Event id is required")
-    private Long eventId;
     @NotNull(message = "Event quantity is required")
     private int quantity;
 }
