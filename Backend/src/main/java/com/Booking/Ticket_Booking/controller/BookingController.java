@@ -46,7 +46,7 @@ public class BookingController {
         return confirmPayment(bookingId, request);
     }
 
-    @PostMapping("/api/payments/create-checkout-session")
+    @PostMapping("/create-checkout-session")
     public ResponseEntity<?> createStripeSession(@RequestBody StripeSessionRequest request) {
         return createStripeSession(request);
     }

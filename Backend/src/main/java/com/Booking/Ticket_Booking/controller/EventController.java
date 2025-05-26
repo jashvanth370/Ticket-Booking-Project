@@ -86,4 +86,9 @@ public class EventController {
         List<Event> events = eventService.getEventsByUserId(user.getId());
         return ResponseEntity.ok(events);
     }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getAllCategory(){
+        return eventService.getAllCategory();
+    }
 }

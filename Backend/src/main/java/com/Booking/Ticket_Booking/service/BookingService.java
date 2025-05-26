@@ -164,7 +164,7 @@ public class BookingService {
             params.put("payment_method_types", List.of("card"));
             params.put("mode", "payment");
             params.put("success_url", "http://localhost:5173/payment-success?bookingId=" + request.getBookingId());
-            params.put("cancel_url", "http://localhost:5172/events");
+            params.put("cancel_url", "http://localhost:5173/events");
 
             List<Object> lineItems = new ArrayList<>();
             Map<String, Object> item = new HashMap<>();

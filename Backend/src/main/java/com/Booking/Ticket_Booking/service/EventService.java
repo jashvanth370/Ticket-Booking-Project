@@ -155,4 +155,9 @@ public class EventService {
     public List<Event> getEventsByUserId(Long userId) {
         return eventRepository.findByCreatedById(userId);
     }
+
+    public ResponseEntity<?> getAllCategory() {
+        List<String> categories = eventRepository.findDistinctCategories();
+        return ResponseEntity.ok(categories);
+    }
 }
