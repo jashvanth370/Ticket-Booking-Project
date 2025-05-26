@@ -12,10 +12,29 @@ const images = [
   "/images/drama.jpg"
 ];
 
-const HomePage = () => {
+const HomePage = ({ onCategoryChange }) => {
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const [events, setEvents] = useState([]);
+
+  const [error, setError] = useState(null);
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/api/events/categories");
+        const data = await response.json();
+        setCategories(data);
+      }
+      catch (err) {
+        console.error('Failed to fetch categories:', err);
+      }
+    }
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +62,14 @@ const HomePage = () => {
                 <button className="cta-button" onClick={() => navigate("/events")}>
                   Explore Events
                 </button>
-                <button className="cta-button">Category</button>
+                <select onChange={(e) => { onCategoryChange(e.target.value); }} className="category-dropdown">
+                  <option value="">Select Category</option>
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="slide-indicators">

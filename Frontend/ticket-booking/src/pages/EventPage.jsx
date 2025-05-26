@@ -227,7 +227,7 @@ const EventPage = () => {
                         </p>
                         <button
                           className="book-button"
-                          onClick={() => navigate("/bookings")}
+                          onClick={() => navigate("/bookings",{ state: { event } })}
                         >
                           Book Now
                         </button>

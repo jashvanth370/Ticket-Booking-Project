@@ -1,89 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
 import { createBooking } from '../api/bookingApi';
+import { createStripeSession } from '../api/bookingApi';
 import '../styles/BookingPage.css';
+import axios from 'axios';
+
+const stripePromise = loadStripe("pk_test_YourStripePublicKey"); // Replace with your real key
 
 const BookingForm = () => {
-  const [events, setEvents] = useState([]);
-  const [eventId, setEventId] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const event = location.state?.event;
+
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedEvents = localStorage.getItem("events");
-    if (storedEvents) {
-      setEvents(JSON.parse(storedEvents));
-    }
-  }, []);
+  const userId = JSON.parse(localStorage.getItem('userId'));
+  const token = localStorage.getItem('token');
 
   const handleCreateBooking = async (e) => {
     e.preventDefault();
-    setMessage('');
-    setLoading(true);
-
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    const token = localStorage.getItem('token');
 
     if (!userId || !token) {
-      alert("You must be logged in to book an event.");
-      setLoading(false);
+      alert("Please log in first.");
       navigate('/login');
       return;
     }
 
-
-    console.log(userId, token)
-    const bookingData = {
-      eventId: parseInt(eventId),
-      quantity: parseInt(quantity),
-    };
+    const bookingData = { quantity: parseInt(quantity) };
 
     try {
-      const response = await createBooking(bookingData, token, userId);
-      const successStatus = [200, 201];
+      setLoading(true);
 
-      console.log(token)
-      if (successStatus.includes(response.status)) {
-        setMessage("Booking successful!");
-        alert("Booking Successfully ")
-        navigate('/events');
-      } else {
-        setMessage("Booking failed. Please try again.");
-      }
-    } catch (err) {
-      const errorMsg =
-        err.response?.data?.message || "Something went wrong. Please try again later.";
-      setMessage(errorMsg);
-      console.error("Booking Error:", err);
+      // Step 1: Create booking
+      const bookingRes = await createBooking(bookingData, token, userId, event.id);
+      const booking = bookingRes.data;
+
+      // Step 2: Create Stripe session
+      const stripe = await stripePromise;
+
+      const sessionRes = await createStripeSession({
+        bookingId: booking.bookingId,
+        amount: booking.totalAmount,
+        eventName: booking.eventTitle,
+      }, token);
+
+      const sessionId = sessionRes.data.sessionId;
+
+      // Step 3: Redirect to Stripe
+      await stripe.redirectToCheckout({ sessionId });
+
+    } catch (error) {
+      console.error(error);
+      setMessage("Error processing your booking or payment.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-
     <div className="booking-form-container">
       <div className="booking-form">
-        <h2>🎟 Book an Event</h2>
-        <form onSubmit={handleCreateBooking}>
-          <div>
-            <label>Event Name:</label>
-            <select
-              value={eventId}
-              onChange={(e) => setEventId(e.target.value)}
-              required
-            >
-              <option value="">Select an event</option>
-              {events.map(event => (
-                <option key={event.id} value={event.id}>
-                  {event.title}
-                </option>
-              ))}
-            </select>
+        <h2>🎟 Book: {event?.name}</h2>
+        <p><strong>Price:</strong> ${event?.price}</p>
+        <p><strong>Available Tickets:</strong> {event?.available_tickets}</p>
 
-          </div>
+        <form onSubmit={handleCreateBooking}>
           <div>
             <label>Quantity:</label>
             <input
@@ -94,10 +78,12 @@ const BookingForm = () => {
               required
             />
           </div>
+
           <button type="submit" disabled={loading}>
-            {loading ? 'Booking...' : 'Book Now'}
+            {loading ? 'Booking...' : 'Book Now & Pay'}
           </button>
         </form>
+
         {message && <p>{message}</p>}
       </div>
     </div>

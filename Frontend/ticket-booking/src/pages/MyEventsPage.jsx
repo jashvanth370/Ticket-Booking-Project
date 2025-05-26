@@ -26,6 +26,7 @@ const MyEventsPage = () => {
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
         try {
+            console.log("Form data to update:", formData);
             await updateEvent(selectedEvent.id, formData);
             alert("Event updated successfully!");
 
@@ -33,14 +34,15 @@ const MyEventsPage = () => {
             setEvents(response.data);
             setSelectedEvent(null);
         } catch (err) {
-            console.error("Failed to update event:", err);
+            console.error("Failed to update event:", err.response?.data || err.message);
             alert("Error updating event.");
         }
+
     };
 
     const handleEditClick = (event) => {
         setSelectedEvent(event);
-        setFormData(event); 
+        setFormData(event);
     };
 
     return (
@@ -61,6 +63,7 @@ const MyEventsPage = () => {
                             <th>Total Tickets</th>
                             <th>Available</th>
                             <th>Created At</th>
+                            <th>Happening At</th>
                             <th>Actions</th>
 
                         </tr>
@@ -76,6 +79,7 @@ const MyEventsPage = () => {
                                 <td>{event.total_tickets}</td>
                                 <td>{event.available_tickets}</td>
                                 <td>{new Date(event.created_at).toLocaleString()}</td>
+                                <td>{event.happening_date}</td>
                                 <td>
                                     <button onClick={() => handleEditClick(event)}>Edit</button>
                                 </td>
@@ -137,6 +141,12 @@ const MyEventsPage = () => {
                                 value={formData.status || ''}
                                 onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
                                 placeholder="Status"
+                            />
+                            <input
+                                type="text"
+                                value={formData.happening_date || ''}
+                                onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
+                                placeholder="Happening Date (YYYY-MM-DD)"
                             />
                             <div className="modal-actions">
                                 <button type="submit">Update Event</button>

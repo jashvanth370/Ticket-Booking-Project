@@ -12,7 +12,9 @@ const AddEventPage = () => {
     happening_date: '',
     category: '',
     capacity: 0,
-    price: 0
+    price: 0,
+    available_tickets: 0,
+    total_tickets: 0,
   });
 
   const [error, setError] = useState('');
@@ -67,6 +69,12 @@ const AddEventPage = () => {
 
         <label>Capacity:</label>
         <input type="number" name="capacity" value={eventData.capacity} onChange={handleChange} required />
+
+        <label>Total Tickets:</label>
+        <input type="number" name="total_tickets" value={eventData.total_tickets} onChange={handleChange} required />
+
+        <label>Available Tickets:</label>
+        <input type="number" name="available_tickets" value={eventData.available_tickets} onChange={handleChange} required />
 
         <label>Price (LKR):</label>
         <input type="number" name="price" value={eventData.price} onChange={handleChange} required />

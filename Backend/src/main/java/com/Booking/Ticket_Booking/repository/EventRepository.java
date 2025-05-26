@@ -17,4 +17,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     public List<Event> findByLocation(String location);
 
     public List<Event> findByCreatedById(Long userId);
+
+    @Query("SELECT DISTINCT e.category FROM Event e")
+    List<String> findDistinctCategories();
 }

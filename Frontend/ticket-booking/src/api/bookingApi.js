@@ -1,15 +1,34 @@
 import api from './api';
+import axios from 'axios';
 
 
-export const createBooking = (data, token,userId) => {
-  
-  return api.post(`/booking/eventBooking/${userId}`, data,{
+export const createBooking = (data, token, userId, eventId) => {
+
+  return api.post(`/booking/eventBooking/${userId}/${eventId}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json'
     }
   });
 }
+
+export const createStripeSession = async (bookingData, token) => {
+  
+  if (!token) {
+    throw new Error('User is not authenticated');
+  }
+  return axios.post(
+    'http://localhost:8081/api/payments/create-checkout-session',
+    bookingData,
+    {
+      
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
 
 export const getMyBookings = (id) => api.get(`/booking/getMyBooking/${id}`);
 

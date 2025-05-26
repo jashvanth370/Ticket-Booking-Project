@@ -1,11 +1,26 @@
 import axios from 'axios';
 import api from './api';
 
+export const getAuthHeader = () => {
+  const token = localStorage.getItem('token');
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
+};
+
 const BASE_URL = 'http://localhost:8081/api/events';
 
 export const getAllEvents = () => {
-    return axios.get(`${BASE_URL}/getAllEvents`,getAuthHeader());
-}
+  const token = localStorage.getItem('token');
+  // if (!token) {
+  //   console.error("No token found. User might not be logged in.");
+  //   return Promise.reject("No token");
+  // }
+  return axios.get(`${BASE_URL}/getAllEvents`);
+};
+
 
 export const getEventById = (id) => api.get(`/events/getEventById/${id}`);
 
@@ -30,18 +45,21 @@ export const createEvent = (eventData) => {
 };
 
 
-const getAuthHeader = () => {
-    const token = localStorage.getItem('token');
-    return {
-        headers:{
-            Authorization : `Bearer ${token}`,
-        },
-    };  
-};
+export const updateEvent = (id, eventData) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error("No token found. User might not be logged in.");
+    return Promise.reject("No token");
+  }
+  return axios.put(`${BASE_URL}/update/${id}`, eventData, getAuthHeader());
+}
+
+
+
 
 export const filterEvents = (filters) => api.get('/events/search', { params: filters });
 
-export const updateEvent = (id, eventData) => api.put(`/events/update/${id}`, eventData);
+
 
 export const getEventsByUserId = () => api.get('/events/my-events');
 

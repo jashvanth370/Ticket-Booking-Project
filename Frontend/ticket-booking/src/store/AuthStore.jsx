@@ -1,12 +1,15 @@
 // src/store/AuthStore.js
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { useNavigate } from 'react-router-dom';
+
 
 const useAuthStore = create(
   (set) => ({
     userId: null,
     token: null,
     role: null,
+    
 
     login: ({ userId, token, role }) => {
       set({ userId, token, role });
@@ -16,10 +19,14 @@ const useAuthStore = create(
     },
 
     logout: () => {
-      set({ userId: null, token: null, role: null });
+              console.log("Logging out...");
+      
       localStorage.removeItem('userId');
       localStorage.removeItem('token');
       localStorage.removeItem('role');
+      set({ userId: null, token: null, role: null });
+      console.log("User logged out successfully.");
+      
     },
   }),
 );
