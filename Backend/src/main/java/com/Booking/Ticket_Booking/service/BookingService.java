@@ -67,8 +67,6 @@ public class BookingService {
 
 
 
-
-
     public ResponseEntity<?> confirmBookingPayment(Long bookingId,PaymentConfirmationRequest request) {
         try {
             Booking booking = bookingRepository.findById(bookingId)

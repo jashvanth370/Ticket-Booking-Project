@@ -9,6 +9,7 @@ import com.Booking.Ticket_Booking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +25,7 @@ public class EventService {
     @Autowired
     private UserRepository userRepository;
 
-    public ResponseEntity<?> createEvent(EventRequest request ,Long userId) {
+    public ResponseEntity<?> createEvent(EventRequest request , Long userId, MultipartFile image) {
         try {
             Optional<User> userOptional = userRepository.findById(userId);
             if (userOptional.isEmpty()) {
@@ -47,6 +48,7 @@ public class EventService {
                     .total_tickets(request.getTotalTickets())
                     .category(request.getCategory())
                     .status(request.getStatus())
+                    .imageData(image.getBytes())
                     .happening_date(request.getHappening_date())
                     .createdBy(user)
                     .build();
@@ -76,6 +78,7 @@ public class EventService {
             event.setAvailable_tickets(request.getAvailableTickets());
             event.setTotal_tickets(request.getTotalTickets());
             event.setStatus(request.getStatus());
+
 
             eventRepository.save(event);
             return ResponseEntity.ok(event);

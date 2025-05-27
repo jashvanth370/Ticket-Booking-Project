@@ -43,12 +43,12 @@ public class BookingController {
 
     @PutMapping("/api/bookings/{bookingId}/confirm-payment")
     public ResponseEntity<?> confirmPayment(@PathVariable Long bookingId, @RequestBody PaymentConfirmationRequest request) {
-        return confirmPayment(bookingId, request);
+        return bookingService.confirmPayment(bookingId, request);
     }
 
-    @PostMapping("/create-checkout-session")
+    @PostMapping("/payments/create-checkout-session")
     public ResponseEntity<?> createStripeSession(@RequestBody StripeSessionRequest request) {
-        return createStripeSession(request);
+        return bookingService.createStripeSession(request);
     }
 
 

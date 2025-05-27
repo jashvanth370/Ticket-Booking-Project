@@ -26,8 +26,6 @@ public class EventRequest {
     private EventStatus status;
     @NotNull(message = "Event happaning date is required")
     private LocalDateTime happening_date;
-    @NotNull(message = "Event photo is required")
-    private String imageUrl;
 
 }
 

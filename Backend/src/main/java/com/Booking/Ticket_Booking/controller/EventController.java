@@ -8,11 +8,13 @@ import com.Booking.Ticket_Booking.repository.UserRepository;
 import com.Booking.Ticket_Booking.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,10 +29,12 @@ public class EventController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/create/{userId}")
-    public ResponseEntity<?> createEvent(@RequestBody EventRequest eventRequest,
-                                         @PathVariable Long userId) {
-        return eventService.createEvent(eventRequest,userId);
+    @PostMapping(value = "/create/{userId}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createEvent(@PathVariable Long userId,
+                                         @RequestParam("request") EventRequest eventRequest,
+                                         @RequestPart("image") MultipartFile image) {
+        System.out.println("ccccc");
+        return eventService.createEvent(eventRequest,userId,image);
     }
 
     @PutMapping("/update/{id}")

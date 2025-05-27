@@ -30,6 +30,9 @@ public class Event {
 
     private String imageFilename;
 
+    @Lob
+    private byte[] imageData;
+
 
 
     private LocalDateTime happening_date;
