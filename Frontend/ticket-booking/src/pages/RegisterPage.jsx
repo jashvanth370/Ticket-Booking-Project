@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/RegisterPage.css';
 import { register } from '../api/authApi';
+import { Navigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' ,role:''});
@@ -17,6 +18,7 @@ const RegisterPage = () => {
       const res = await register(formData);
       setMessage(res.data);
       alert('Registration successful! You can now log in.');
+      Navigate('/login');
     } catch (err) {
       setMessage(err.response?.data || 'Registration failed.');
     }

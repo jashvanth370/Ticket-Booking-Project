@@ -200,7 +200,7 @@ const EventPage = () => {
                       <div key={event.id} className="event-card">
                         <h2>{event.title}</h2>
                         <img
-                          src={`http://localhost:8081${event.imageUrl}`}
+                          src={`http://localhost:8081/${event.imageData}`}
                           alt={event.title}
                         />
                         <p>
@@ -225,20 +225,22 @@ const EventPage = () => {
                         <p>
                           <strong>Happened Date:</strong> {event.happening_date}
                         </p>
-                        <button
-                          className="book-button"
-                          onClick={() => navigate("/bookings",{ state: { event } })}
-                        >
-                          Book Now
-                        </button>
-                        <br />
-                        <button
-                          className="book-button"
-                          onClick={() => handleAddToWishlist(event.id)}
-                        >
-                          Add to Wishlist
-                        </button>
-                        <br />
+
+                        <div className="event-actions">
+                          <button
+                            className="book-button"
+                            onClick={() => navigate("/bookings", { state: { event } })}
+                          >
+                            Book Now
+                          </button>
+
+                          <button
+                            className="book-button"
+                            onClick={() => handleAddToWishlist(event.id)}
+                          >
+                            Add to Wishlist
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>

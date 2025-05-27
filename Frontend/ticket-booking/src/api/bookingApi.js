@@ -18,7 +18,7 @@ export const createStripeSession = async (bookingData, token) => {
     throw new Error('User is not authenticated');
   }
   return axios.post(
-    'http://localhost:8081/api/payments/create-checkout-session',
+    'http://localhost:8081/api/bookings/payments/create-checkout-session',
     bookingData,
     {
       

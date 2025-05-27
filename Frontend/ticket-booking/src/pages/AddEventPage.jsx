@@ -15,6 +15,7 @@ const AddEventPage = () => {
     price: 0,
     available_tickets: 0,
     total_tickets: 0,
+    imageData:'',
   });
 
   const [error, setError] = useState('');
@@ -72,6 +73,18 @@ const AddEventPage = () => {
 
         <label>Total Tickets:</label>
         <input type="number" name="total_tickets" value={eventData.total_tickets} onChange={handleChange} required />
+
+        <label> Image </label>
+        <input type="file" name="imageFilename" accept="image/*" onChange={(e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setEventData({ ...eventData, image: reader.result });
+            };
+            reader.readAsDataURL(file);
+          }
+        }} required />
 
         <label>Available Tickets:</label>
         <input type="number" name="available_tickets" value={eventData.available_tickets} onChange={handleChange} required />

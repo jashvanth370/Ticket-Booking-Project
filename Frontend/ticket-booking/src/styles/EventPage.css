@@ -134,8 +134,8 @@
   color: #fff;
   border: none;
   padding: 14px 22px;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 500;
   border-radius: 14px;
   cursor: pointer;
   width: 50%;
@@ -143,7 +143,10 @@
   box-shadow: 0 5px 15px rgba(127, 85, 177, 0.3);
   display: flex;
 }
-
+.event-actions{
+  display: flex;
+  gap: 10px;
+}
 .book-button:hover {
   background-color: #4a2e74;
   box-shadow: 0 8px 25px rgba(74, 46, 116, 0.5);
