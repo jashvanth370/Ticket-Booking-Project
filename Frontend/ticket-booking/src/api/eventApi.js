@@ -37,12 +37,25 @@ export const createEvent = (eventData) => {
   if (!token || !userId) {
     throw new Error('User is not authenticated');
   }
-  return axios.post(`${BASE_URL}/create/${userId}`, eventData, {
+
+  const formData = new FormData();
+  formData.append('title', eventData.title);
+  formData.append('description', eventData.description);
+  formData.append('location', eventData.location);
+  formData.append('happening_date', eventData.happening_date);
+  formData.append('category', eventData.category);
+  formData.append('price', eventData.price);
+  formData.append('available_tickets', eventData.available_tickets);
+  formData.append('total_tickets', eventData.total_tickets);
+  formData.append('image', eventData.image); // Must be a File object
+
+  return axios.post(`${BASE_URL}/create/${userId}`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
-    }
+      'Content-Type': 'multipart/form-data',
+    },
   });
-};
+}
 
 
 export const updateEvent = (id, eventData) => {

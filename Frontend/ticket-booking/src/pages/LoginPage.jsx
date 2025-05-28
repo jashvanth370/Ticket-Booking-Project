@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 import '../styles/LoginPage.css';
 import useAuthStore from '../store/AuthStore';
+import { triggerNotification } from '../components/triggerNotification';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -19,6 +20,7 @@ const LoginPage = () => {
 
       const { token, userId, role } = response.data;
       login({ userId, token, role });
+      triggerNotification("Login successfully!", "success");
 
       navigate('/');
     } catch (err) {

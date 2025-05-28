@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { createBooking } from '../api/bookingApi';
 import { createStripeSession } from '../api/bookingApi';
 import '../styles/BookingPage.css';
+import { triggerNotification } from '../components/triggerNotification';
 import axios from 'axios';
 
 const stripePromise = loadStripe("pk_test_YourStripePublicKey"); // Replace with your real key
@@ -25,6 +26,7 @@ const BookingForm = () => {
 
     if (!userId || !token) {
       alert("Please log in first.");
+      triggerNotification("Booking successfully!", "success");
       navigate('/login');
       return;
     }
@@ -63,9 +65,9 @@ const BookingForm = () => {
   return (
     <div className="booking-form-container">
       <div className="booking-form">
-        <h2>🎟 Book: {event?.name}</h2>
-        <p><strong>Price:</strong> ${event?.price}</p>
-        <p><strong>Available Tickets:</strong> {event?.available_tickets}</p>
+        <h2>🎟 Book: {event?.title}</h2>
+        <p><strong>Price:</strong> ${event?.price || 0}</p>
+        <p><strong>Available Tickets:</strong> {event?.available_tickets || 'N/A'}</p>
 
         <form onSubmit={handleCreateBooking}>
           <div>

@@ -1,36 +1,81 @@
 .wishlist-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.wishlist-container h1 {
+  color: #7F55B1;
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .wishlist-list {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .wishlist-item {
-  background-color: #f9f9f9;
-  padding: 1.2rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f4f0fa, #eae2f8);
+  padding: 1.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.wishlist-item:hover {
+  transform: translateY(-4px);
 }
 
 .wishlist-item h3 {
-  margin: 0 0 0.5rem 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: #4b2d74;
+}
+
+.wishlist-item p {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.btn {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.remove-btn,
+.add-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .remove-btn {
   background-color: #ff4d4f;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: #fff;
 }
 
 .remove-btn:hover {
   background-color: #d9363e;
+}
+
+.add-btn {
+  background-color: #9B7EBD;
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: #7F55B1;
 }

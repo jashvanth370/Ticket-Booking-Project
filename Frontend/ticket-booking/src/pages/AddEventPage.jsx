@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { createEvent } from '../api/eventApi';
 import '../styles/AddEventPage.css';
 import { useNavigate } from 'react-router-dom';
+import { triggerNotification } from '../components/triggerNotification';
+
 
 const AddEventPage = () => {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ const AddEventPage = () => {
     price: 0,
     available_tickets: 0,
     total_tickets: 0,
-    imageData:'',
+    image: null, // Changed from imageData to image
   });
 
   const [error, setError] = useState('');
@@ -25,17 +27,20 @@ const AddEventPage = () => {
     setEventData({ ...eventData, [name]: value });
   };
 
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  const token = localStorage.getItem('token');
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setEventData({ ...eventData, image: file });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await createEvent(eventData, userId, token);
-      console.log("res", response);
-      navigate('/events'); // Or wherever you want to redirect
+      await createEvent(eventData); 
+      triggerNotification("Login successfully!", "success");
+      navigate('/events');
     } catch (err) {
-      console.log("res");
       console.error(err);
       setError('Failed to create event');
     }
@@ -47,7 +52,6 @@ const AddEventPage = () => {
     const pad = (n) => n.toString().padStart(2, '0');
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
   };
-
 
   return (
     <div className="add-event-container">
@@ -74,17 +78,8 @@ const AddEventPage = () => {
         <label>Total Tickets:</label>
         <input type="number" name="total_tickets" value={eventData.total_tickets} onChange={handleChange} required />
 
-        <label> Image </label>
-        <input type="file" name="imageFilename" accept="image/*" onChange={(e) => {
-          const file = e.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              setEventData({ ...eventData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
-          }
-        }} required />
+        <label>Image:</label>
+        <input type="file" name="image" accept="image/*" onChange={handleImageChange} required />
 
         <label>Available Tickets:</label>
         <input type="number" name="available_tickets" value={eventData.available_tickets} onChange={handleChange} required />

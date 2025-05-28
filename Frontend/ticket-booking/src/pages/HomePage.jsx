@@ -103,6 +103,10 @@ const HomePage = ({ onCategoryChange }) => {
       </section>
 
       <section className="events-preview">
+        <video className="events-video-bg" autoPlay muted loop playsInline>
+          <source src="/videos/popular.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         <h2>Popular Events</h2>
         <div className="event-cards">
           <div className="event-card">

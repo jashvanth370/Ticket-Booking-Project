@@ -32,7 +32,7 @@ public class EventController {
     @PostMapping(value = "/create/{userId}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createEvent(@PathVariable Long userId,
                                          @RequestParam("request") EventRequest eventRequest,
-                                         @RequestPart("image") MultipartFile image) {
+                                         @RequestParam("image") MultipartFile image) {
         System.out.println("ccccc");
         return eventService.createEvent(eventRequest,userId,image);
     }

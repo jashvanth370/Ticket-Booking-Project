@@ -1,0 +1,123 @@
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.about-container h1 {
+  font-size: 2.5rem;
+  color: #7F55B1;
+  margin-bottom: 20px;
+}
+
+.about-container h2 {
+  font-size: 1.75rem;
+  color: #9B7EBD;
+  margin-top: 30px;
+}
+
+.about-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.about-container ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.about-container ul li {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+.about-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  line-height: 1.7;
+}
+
+.about-container h1 {
+  font-size: 2.75rem;
+  color: #7F55B1;
+  margin-bottom: 30px;
+}
+
+.about-container h2 {
+  color: #9B7EBD;
+  margin-top: 40px;
+  font-size: 1.8rem;
+}
+
+.about-container h3 {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  color: #5a3f87;
+}
+
+.about-container ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.about-container li {
+  margin-bottom: 10px;
+  font-size: 1.05rem;
+}
+.about-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.about-hero {
+  background: linear-gradient(135deg, #7F55B1, #9B7EBD);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.about-description, .about-team, .about-timeline {
+  margin-bottom: 3rem;
+}
+
+.about-description ul {
+  list-style: disc;
+  margin-left: 2rem;
+}
+
+.team-members {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.member {
+  text-align: center;
+  max-width: 200px;
+}
+
+.member img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.about-timeline ul {
+  padding-left: 1.5rem;
+  list-style: square;
+}

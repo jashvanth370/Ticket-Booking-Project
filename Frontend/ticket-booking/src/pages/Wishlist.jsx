@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserWishlist, removeWishlistItem } from '../api/wishlistApi';
 import '../styles/Wishlist.css';
 
@@ -8,6 +9,8 @@ const WishlistPage = () => {
 
   const userId = JSON.parse(localStorage.getItem('userId'));
   const token = localStorage.getItem('token');
+
+  const navigate = useNavigate();
 
   const fetchWishlist = async () => {
     setLoading(true);
@@ -22,10 +25,22 @@ const WishlistPage = () => {
     }
   };
 
+  // const handleAdd = () => {
+  //   const selectItem = wishlist.find(item => item.id === wishlistItemId)
+  //   if(selectItem && selectItem.event){
+  //     navigate('/bookings',{state: {event : selectItem.event}});
+  //   }
+  // }
+
+  const handleAdd = (event) => {
+    navigate('/bookings', { state: { event } });
+  };
+
+
   const handleRemove = async (id) => {
     try {
       await removeWishlistItem(id);
-      fetchWishlist(); 
+      fetchWishlist();
     } catch (err) {
       console.error('Error removing wishlist item', err);
     }
@@ -41,7 +56,7 @@ const WishlistPage = () => {
 
   return (
     <div className="wishlist-container">
-      <h2>💖 My Wishlist</h2>
+      <h1>My Wishlist</h1>
       {wishlist.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
@@ -51,12 +66,15 @@ const WishlistPage = () => {
               <h3>{item.event.title}</h3>
               <p>{item.event.description}</p>
               <p><strong>Date:</strong> {new Date(item.event.created_at).toLocaleDateString()}</p>
-              <button className="remove-btn" onClick={() => handleRemove(item.id)}>
-                Remove
-              </button>
-              <button className="add-btn" onClick={() => handleAdd(item.id)}>
-                Book
-              </button>
+              <div className='btn'>
+                <button className="remove-btn" onClick={() => handleRemove(item.id)}>
+                  Remove
+                </button>
+                <button className="add-btn" onClick={() => handleAdd(item.event)} disabled={!item.event}>
+                  Book
+                </button>
+              </div>
+
             </li>
           ))}
         </ul>

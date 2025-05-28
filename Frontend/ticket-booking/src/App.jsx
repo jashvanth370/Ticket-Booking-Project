@@ -14,6 +14,10 @@ import AddEventPage from './pages/AddEventPage';
 import EventDetailsPage from './pages/EventDetailsPage';
 import MyEventsPage from './pages/MyEventsPage';
 import RegisterPage from './pages/RegisterPage';
+import AboutPage from './components/AboutPage';
+import ContactPage from './components/ContactPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -24,24 +28,28 @@ function App() {
       <div className="app-container">
         <Navbar />
         <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/events" element={<EventPage />} />
-          <Route path="/bookings" element={<BookingPage />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/wishlist" element={<WishlistPage />} />
-          <Route path="/review" element={<ReviewPage />} />
-          <Route path="/addEvent" element={<AddEventPage />} />
-          <Route path="/events/:id" element={<EventDetailsPage />} />
-          <Route path="/my-events" element={<MyEventsPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/events" element={<EventPage />} />
+            <Route path="/bookings" element={<BookingPage />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/user-dashboard" element={<UserDashboard />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/review" element={<ReviewPage />} />
+            <Route path="/addEvent" element={<AddEventPage />} />
+            <Route path="/events/:id" element={<EventDetailsPage />} />
+            <Route path="/my-events" element={<MyEventsPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path='/about' element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
 
 
-        </Routes>
+          </Routes>
         </main>
         <Footer />
+        <ToastContainer position="top-right" />
+
       </div>
     </Router>
   )
