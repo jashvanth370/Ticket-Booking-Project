@@ -38,7 +38,7 @@ const AddEventPage = () => {
     e.preventDefault();
     try {
       await createEvent(eventData);
-      triggerNotification("Login successfully!", "success");
+      triggerNotification("Event added successfully ");
       navigate('/events');
     } catch (err) {
       console.error(err);

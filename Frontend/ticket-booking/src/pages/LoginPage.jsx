@@ -24,6 +24,7 @@ const LoginPage = () => {
 
       navigate('/');
     } catch (err) {
+      triggerNotification("Login faild!", "");
       setError('Invalid email or password');
     }
   };

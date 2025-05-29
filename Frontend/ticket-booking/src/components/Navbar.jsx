@@ -92,16 +92,15 @@ const Navbar = () => {
 
                 {user === 'ADMIN' && (
                     <>
-                        <li><NavLink to="/admin-dashboard" onClick={closeMenu}><FaUser size={32} /></NavLink></li>
+                        <li><NavLink to="/user-profile" onClick={closeMenu}><FaUser size={32} /></NavLink></li>
                         <li><NavLink to="/addEvent" onClick={closeMenu}><FaCalendarPlus size={32} /></NavLink></li>
-                        <li><NavLink to="/my-events" onClick={closeMenu}><FaTachometerAlt size={32} /></NavLink></li>
                         <li><NavLink to="/" onClick={() => { closeMenu(); handleLogout(); }}><FaSignOutAlt size={34} /></NavLink></li>
                     </>
                 )}
 
                 {user === 'USER' && (
                     <>
-                        <li><NavLink to="/user-dashboard" onClick={closeMenu}><FaUserCircle size={30} /></NavLink></li>
+                        <li><NavLink to="/user-profile" onClick={closeMenu}><FaUserCircle size={30} /></NavLink></li>
                         <li><NavLink to="/wishlist" onClick={closeMenu}><FaCartPlus size={30} /></NavLink></li>
                         <li><NavLink to="/" onClick={() => { handleLogout(); }}><FaSignOutAlt size={30} /></NavLink></li>
                     </>

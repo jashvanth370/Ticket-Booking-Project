@@ -22,7 +22,7 @@ const RegisterPage = () => {
       triggerNotification("User register successfully!", "success");
       Navigate('/login');
     } catch (err) {
-      setMessage(err.response?.data || 'Registration failed.');
+      setMessage(err.response?.data);
     }
   };
 

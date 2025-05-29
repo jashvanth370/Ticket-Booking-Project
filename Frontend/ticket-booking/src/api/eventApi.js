@@ -33,26 +33,27 @@ export const getEventById = (id) => api.get(`/events/getEventById/${id}`);
 export const createEvent = (eventData) => {
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+  console.log("gfjhghkjhjk")
 
   if (!token || !userId) {
     throw new Error('User is not authenticated');
   }
 
   const formData = new FormData();
-  formData.append('title', eventData.title);
-  formData.append('description', eventData.description);
-  formData.append('location', eventData.location);
-  formData.append('happening_date', eventData.happening_date);
-  formData.append('category', eventData.category);
-  formData.append('price', eventData.price);
-  formData.append('available_tickets', eventData.available_tickets);
-  formData.append('total_tickets', eventData.total_tickets);
-  formData.append('image', eventData.image); // Must be a File object
+
+  // Wrap your eventData JSON inside a Blob with type application/json and append as 'eventRequest'
+  formData.append('eventRequest', new Blob([JSON.stringify(eventData)], { type: 'application/json' }));
+
+  // Append image file separately (make sure eventData.imageData is a File object)
+  if (eventData.image) {
+    formData.append('image', eventData.image);
+    console.log("image appened")
+  }
 
   return axios.post(`${BASE_URL}/create/${userId}`, formData, {
     headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
+      //  Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data', // let axios set boundary automatically
     },
   });
 }

@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import '../src/styles/App.css'
 import AdminDashboard from './pages/admin/AdminDashboard';
-import UserDashboard from './pages/UserDashboard';
+import UserDashboard from './pages/user/UserDashboard';
 import WishlistPage from './pages/Wishlist';
 import ReviewPage from './pages/ReviewPage';
 import AddEventPage from './pages/admin/AddEventPage';
@@ -20,6 +20,7 @@ import { ToastContainer } from 'react-toastify';
 
 import AdminLoginPage from '../src/pages/admin/AdminLoginPage'
 import 'react-toastify/dist/ReactToastify.css';
+import UserProfilePage from './pages/user/UserProfilePage';
 
 
 
@@ -47,8 +48,8 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
 
             {/* admin login */}
-            <Route path="/login/admin" element={<AdminLoginPage role="ADMIN"/>} />
-            <Route path="/login/user" element={<LoginPage role="USER"/>} />
+            <Route path="/login/admin" element={<AdminLoginPage role="ADMIN" />} />
+            <Route path="/login/user" element={<LoginPage role="USER" />} />
             {/* <Route path="/login/admin" element={<AdminLoginPage role="ADMIN" />} /> */}
 
             {/* <Route path="/admin/dashboard" element={
@@ -56,6 +57,8 @@ function App() {
                 <AdminDashboard />
               </ProtectedAdminRoute>
             } /> */}
+
+            <Route path='/user-profile' element={<UserProfilePage />} />
 
 
 

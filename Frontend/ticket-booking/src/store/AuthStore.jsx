@@ -1,7 +1,5 @@
 // src/store/AuthStore.js
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { useNavigate } from 'react-router-dom';
+import { create } from 'zustand'
 
 
 const useAuthStore = create(

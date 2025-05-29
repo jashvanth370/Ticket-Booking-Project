@@ -200,8 +200,9 @@ const EventPage = () => {
                       <div key={event.id} className="event-card">
                         <h2>{event.title}</h2>
                         <img
-                          src={`http://localhost:8081/${event.imageData}`}
-                          alt={event.title}
+                          src={`data:${event.imageType};base64,${event.imageData}`}
+                          alt="event image"
+                          className="w-full h-60 object-cover rounded-t-lg"
                         />
                         <p>
                           <strong>Location:</strong> {event.location}
