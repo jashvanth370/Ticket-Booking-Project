@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { getMyBookings } from '../api/bookingApi';
 import '../styles/UserDashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 const UserDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const navigate =useNavigate();
 
   const userId = JSON.parse(localStorage.getItem('userId'));
   const token = localStorage.getItem('token');
+
+  const handleReview = (eventId) =>{
+    navigate('/review',{
+      state:{
+        eventId,
+        userId
+      }
+    })
+  }
 
 
   useEffect(() => {
@@ -49,6 +60,7 @@ const UserDashboard = () => {
               <th>Location</th>
               <th>Status</th>
               <th>Booked At</th>
+              <th> Review </th>
             </tr>
           </thead>
           <tbody>
@@ -60,6 +72,7 @@ const UserDashboard = () => {
                 <td>{booking.event.location}</td>
                 <td>{booking.bookingStatus || 'Pending'}</td>
                 <td>{new Date(booking.bookingTime).toLocaleString()}</td>
+                <td> <button onClick={()=> handleReview(booking.event.id)}>Review Event</button></td>
               </tr>
             ))}
           </tbody>

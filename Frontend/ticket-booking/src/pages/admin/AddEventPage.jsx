@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { createEvent } from '../api/eventApi';
-import '../styles/AddEventPage.css';
+import { createEvent } from '../../api/eventApi';
+import '../../styles/AddEventPage.css';
 import { useNavigate } from 'react-router-dom';
-import { triggerNotification } from '../components/triggerNotification';
+import { triggerNotification } from '../../components/triggerNotification';
 
 
 const AddEventPage = () => {
@@ -37,7 +37,7 @@ const AddEventPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createEvent(eventData); 
+      await createEvent(eventData);
       triggerNotification("Login successfully!", "success");
       navigate('/events');
     } catch (err) {

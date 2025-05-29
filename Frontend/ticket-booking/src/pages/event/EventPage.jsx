@@ -1,10 +1,10 @@
 // EventPage.jsx
-import { getAllEvents } from "../api/eventApi";
+import { getAllEvents } from "../../api/eventApi";
 import { useEffect, useState } from "react";
-import "../styles/EventPage.css";
+import "../../styles/EventPage.css";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../store/AuthStore";
-import { createWishlistItem } from "../api/wishlistApi";
+import useAuthStore from "../../store/AuthStore";
+import { createWishlistItem } from "../../api/wishlistApi";
 
 const EventPage = () => {
   const [events, setEvents] = useState([]);

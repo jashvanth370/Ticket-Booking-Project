@@ -36,22 +36,16 @@ public class AuthService {
 
 
     public AuthResponse login(AuthRequest request) {
-        // Authenticate user credentials
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-
-        // Load user details for JWT creation
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
-        // Generate JWT token
         String token = jwtService.generateToken(userDetails);
 
-        // Get user data for response
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Return response with token and user details
         return new AuthResponse(token, user.getId(), user.getName(), user.getRole());
     }
 

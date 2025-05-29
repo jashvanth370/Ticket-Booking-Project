@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getAllBookings, getMyBookings } from '../api/bookingApi';
-import '../styles/AdminDashboard.css';
+import { getAllBookings, getMyBookings } from '../../api/bookingApi';
+import '../../styles/AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -12,7 +12,7 @@ const AdminDashboard = () => {
       try {
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId')
-        const response = await getMyBookings(userId,token);
+        const response = await getMyBookings(userId, token);
         console.log(response.data)
         setBookings(response.data || []);
       } catch (err) {
@@ -56,8 +56,8 @@ const AdminDashboard = () => {
           </thead>
           <tbody>
             {bookings.map((booking, index) => (
-                <tr key={booking.id}>
-                
+              <tr key={booking.id}>
+
                 <td>{booking.id}</td>
                 <td>{booking.event.id}</td>
                 <td>{booking.quantity}</td>

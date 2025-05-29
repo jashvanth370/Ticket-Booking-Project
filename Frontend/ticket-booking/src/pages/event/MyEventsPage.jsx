@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getEventsByUserId } from '../api/eventApi';
-import '../styles/MyEventsPage.css';
-import { updateEvent } from '../api/eventApi';
+import { getEventsByUserId } from '../../api/eventApi';
+import '../../styles/MyEventsPage.css';
+import { updateEvent } from '../../api/eventApi';
 
 const MyEventsPage = () => {
     const [events, setEvents] = useState([]);

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
-import { createBooking } from '../api/bookingApi';
-import { createStripeSession } from '../api/bookingApi';
-import '../styles/BookingPage.css';
-import { triggerNotification } from '../components/triggerNotification';
+import { createBooking } from '../../api/bookingApi';
+import { createStripeSession } from '../../api/bookingApi';
+import '../../styles/BookingPage.css';
+import { triggerNotification } from '../../components/triggerNotification';
 import axios from 'axios';
 
 const stripePromise = loadStripe("pk_test_YourStripePublicKey"); // Replace with your real key

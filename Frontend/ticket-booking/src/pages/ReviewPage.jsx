@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createReview } from '../api/reviewApi';
 import '../styles/ReviewPage.css';
+import { triggerNotification } from '../components/triggerNotification';
 
 const ReviewPage = ({ eventId }) => {
   const [rating, setRating] = useState(0);
@@ -29,12 +30,12 @@ const ReviewPage = ({ eventId }) => {
 
     try {
       await createReview(reviewData);
-      setMessage('Review submitted successfully!');
+      triggerNotification('Review submitted successfully!');
       setRating(0);
       setComment('');
     } catch (err) {
-      console.error('Review submission error:', err);
-      setMessage('Failed to submit review.');
+      console.error();
+      triggerNotification('Review submission error:', err);
     }
   };
 
