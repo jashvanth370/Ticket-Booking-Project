@@ -36,15 +36,17 @@ public class AuthService {
 
 
     public AuthResponse login(AuthRequest request) {
+        // Authenticate user
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
-        String token = jwtService.generateToken(userDetails);
-
+        // Get user from DB
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Generate token using full user object
+        String token = jwtService.generateToken(user); // Use your own method accepting `User`
 
         return new AuthResponse(token, user.getId(), user.getName(), user.getRole());
     }

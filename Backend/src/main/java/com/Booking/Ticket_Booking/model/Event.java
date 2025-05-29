@@ -29,6 +29,7 @@ public class Event {
     private LocalDateTime created_at;
 
     private String imageFilename;
+    private String imageType;
 
     @Lob
     private byte[] imageData;

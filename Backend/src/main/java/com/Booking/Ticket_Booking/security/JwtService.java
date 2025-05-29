@@ -1,5 +1,6 @@
 package com.Booking.Ticket_Booking.security;
 
+import com.Booking.Ticket_Booking.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -40,10 +41,17 @@ public class JwtService {
     }
 
     // Generate a JWT token with user details
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername());
+        claims.put("id", user.getId());
+        claims.put("name", user.getName());
+        claims.put("email", user.getEmail());
+        claims.put("role", user.getRole().name());
+        claims.put("created_at", user.getCreated_at().toString());
+
+        return createToken(claims, user.getEmail());
     }
+
 
     // Build JWT with subject and expiration
     private String createToken(Map<String, Object> claims, String subject) {

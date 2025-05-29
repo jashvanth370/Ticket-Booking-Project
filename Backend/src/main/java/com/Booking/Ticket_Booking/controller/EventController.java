@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,9 @@ public class EventController {
 
     @PostMapping(value = "/create/{userId}" ,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createEvent(@PathVariable Long userId,
-                                         @RequestParam("request") EventRequest eventRequest,
-                                         @RequestParam("image") MultipartFile image) {
-        System.out.println("ccccc");
+                                         @RequestPart("eventRequest")EventRequest eventRequest,
+                                         @RequestPart(value= "image", required = false) MultipartFile image) throws IOException {
+        System.out.println(image.getBytes());
         return eventService.createEvent(eventRequest,userId,image);
     }
 

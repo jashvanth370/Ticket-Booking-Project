@@ -48,7 +48,8 @@ public class EventService {
                     .total_tickets(request.getTotalTickets())
                     .category(request.getCategory())
                     .status(request.getStatus())
-                    .imageData(image.getBytes())
+                    .imageData(image != null ? image.getBytes() : null)
+                    .imageType(image!=null? image.getContentType() : null)
                     .happening_date(request.getHappening_date())
                     .createdBy(user)
                     .build();
@@ -68,6 +69,7 @@ public class EventService {
             if (eventOpt.isEmpty()) {
                 return ResponseEntity.status(404).body("Event not found");
             }
+
 
             Event event = eventOpt.get();
             event.setTitle(request.getTitle());
