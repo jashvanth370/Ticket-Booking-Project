@@ -35,3 +35,15 @@ A full-stack web application for discovering and booking tickets to events with 
 ```bash
 cd backend
 ./mvnw spring-boot:run
+
+🖼️ Screenshots
+(Include screenshots of homepage, event listing, booking flow, and wishlist here if possible)
+
+🌐 Deployment (Optional)
+Frontend: [Vercel / Netlify]
+
+Backend: [Render / Railway / Localhost]
+
+👨‍💻 Author
+Developed by [jashvanth].
+Feel free to fork, improve, or reach out for collaboration.
