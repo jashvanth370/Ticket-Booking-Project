@@ -252,9 +252,6 @@ const EventPage = () => {
         </>
       )}
 
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
     </div>
   );
 };
