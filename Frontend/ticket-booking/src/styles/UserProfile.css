@@ -1,38 +1,130 @@
 .user-profile {
-  padding: 2rem;
-  background-color: #f5f5f5;
-  max-width: 600px;
-  margin: auto;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(127, 85, 177, 0.15);
+}
+
+.profile-content {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 140px; /* fixed width so buttons line up nicely */
+}
+
+.buttons-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
   border-radius: 8px;
-  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  border: none;
+  background-color: #7F55B1;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
 }
-.user-profile h2 {
-  color: #7F55B1;
+
+.buttons-container button:hover {
+  background-color: #9B7EBD;
 }
-.user-profile p {
-  margin: 0.5rem 0;
+
+.details-container {
+  flex: 1;
+  text-align: left;
   font-size: 1.1rem;
 }
+
+.details-container p {
+  margin: 8px 0;
+}
+
+/* Modal styles remain the same */
+
+
+/* Modal Styles */
 .modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal {
-  background: white;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  max-width: 400px;
   width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 
-.user-profile button {
-  margin-right: 10px;
-  margin-top: 10px;
+.modal {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 12px 48px rgba(127, 85, 177, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left;
+}
+
+.modal h3 {
+  margin-top: 0;
+  color: #7F55B1;
+  margin-bottom: 20px;
+}
+
+.modal label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #4a2e74;
+}
+
+.modal input[type="text"],
+.modal input[type="email"] {
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 2px solid #7F55B1;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+.modal button[type="submit"] {
+  background-color: #7F55B1;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.modal button[type="submit"]:hover {
+  background-color: #9B7EBD;
+}
+
+.modal button[type="button"] {
+  background-color: #ccc;
+  color: #444;
+}
+
+.modal button[type="button"]:hover {
+  background-color: #aaa;
 }
