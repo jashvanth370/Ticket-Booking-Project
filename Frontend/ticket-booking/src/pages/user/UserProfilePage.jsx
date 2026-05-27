@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // 🧭 Import useNavigate
-import { userEditById } from '../../api/userApi'; 
+import { userEditById } from '../../api/userApi';
 import { jwtDecode } from 'jwt-decode';
 import '../../styles/UserProfile.css';
+import { getMyBookings } from '../../api/bookingApi';
 
 const UserProfilePage = () => {
   const token = localStorage.getItem('token');
@@ -33,8 +34,13 @@ const UserProfilePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await userEditById(id, formData);
+      const updatedUser = await userEditById(id, formData); // make sure this returns updated data
       alert('Profile updated successfully!');
+
+      // Update your local state with the new data so UI refreshes
+      setUserData(updatedUser);
+
+      navigate('/user-profile');
       closeModal();
     } catch (error) {
       console.error('Failed to update profile', error);
@@ -42,27 +48,42 @@ const UserProfilePage = () => {
     }
   };
 
-  const handleBookingClick = () => {
-    navigate('/admin-dashboard'); // 🔁 change to your booking route
+  
+  const handleEventsClick = async () => {
+    try {
+      const userId = localStorage.getItem('userId');
+      const response = await getMyBookings(userId);
+      // axios responses do not have .ok, so check status instead
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch bookings');
+      }
+      const bookings = response.data;
+      console.log('User bookings:', bookings);
+      // set bookings in state or update UI here
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+    }
   };
 
-  const handleEventsClick = () => {
-    navigate('/my-events'); // 🔁 change to your my-events route
-  };
 
   return (
     <div className="user-profile">
       <h2>👤 My Profile</h2>
-      <p><strong>Name:</strong> {name}</p>
-      <p><strong>Email:</strong> {email}</p>
-      <p><strong>Role:</strong> {role}</p>
-      <p><strong>Created At:</strong> {new Date(created_at).toLocaleString()}</p>
-      <p><strong>User ID:</strong> {id}</p>
 
-      <button onClick={openModal}>Edit</button>
-      <button onClick={handleBookingClick}>Booking Details</button>
-      <button onClick={handleEventsClick}>My Events</button>
+      <div className="profile-content">
+        <div className="buttons-container">
+          <button onClick={openModal}>Edit</button>
+          <button onClick={handleEventsClick}>My Booking Events</button>
+        </div>
 
+        <div className="details-container">
+          <p><strong>Name:</strong> {name}</p>
+          <p><strong>Email:</strong> {email}</p>
+          <p><strong>Role:</strong> {role}</p>
+          <p><strong>Created At:</strong> {new Date(created_at).toLocaleString()}</p>
+          <p><strong>User ID:</strong> {id}</p>
+        </div>
+      </div>
       {isModalOpen && (
         <div className="modal-backdrop">
           <div className="modal">
@@ -70,23 +91,23 @@ const UserProfilePage = () => {
             <form onSubmit={handleSubmit}>
               <label>
                 Name:
-                <input 
-                  type="text" 
-                  name="name" 
-                  value={formData.name} 
-                  onChange={handleChange} 
-                  required 
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
                 />
               </label>
               <br />
               <label>
                 Email:
-                <input 
-                  type="email" 
-                  name="email" 
-                  value={formData.email} 
-                  onChange={handleChange} 
-                  required 
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                 />
               </label>
               <br />
