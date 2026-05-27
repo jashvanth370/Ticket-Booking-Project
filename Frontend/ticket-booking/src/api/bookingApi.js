@@ -30,7 +30,9 @@ export const createStripeSession = async (bookingData, token) => {
   );
 };
 
-export const getMyBookings = (id) => api.get(`/booking/getMyBooking/${id}`);
+export const getMyBookings = (id) => {
+  api.get(`/booking/getMyBooking/${id}`);
+}
 
 export const getAllBookings = () => api.get('/booking/getAllBooking');
 
